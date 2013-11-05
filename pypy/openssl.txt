@@ -1,0 +1,26 @@
+wget http://www.openssl.org/source/openssl-1.0.1c.tar.gz
+tar xfva ~/Downloads/openssl-1.0.1c.tar.gz
+cd openssl-1.0.1c
+
+1. add to Configure
++$shared_ldflag .= " -Wl,--version-script=openssl.ld";
+
+2. add to Makefile
+-SHARED_LIBS=
+-SHARED_LIBS_LINK_EXTS=
+-SHARED_LDFLAGS=
++SHARED_LIBS=$(SHARED_FIPS) $(SHARED_CRYPTO) $(SHARED_SSL)
++SHARED_LIBS_LINK_EXTS=.so.$(SHLIB_MAJOR) .so
++SHARED_LDFLAGS=-m64 -Wl,--version-script=openssl.ld
+
+3. create file engines/openssl.ld
+OPENSSL_1.0.0 {
+     global:
+         *;
+};
+
+./config shared zlib --prefix=/data/Python/openssl --openssldir=/data/Python/openssl
+
+cd /data/Python/openssl/lib
+
+source $HOME/devpy/bin/activate && export LD_LIBRARY_PATH=/data/Python/openssl/lib:$LD_LIBRARY_PATH

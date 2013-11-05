@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="{{ static_url("css/index.css") }}">
+    <title>Template Test</title>
+  </head>
+  <body>
+    <ul>
+      <li><a href="/query">A single query</a></li>
+      <li><a href="/batch">A batch of queries</a></li>
+      <li><a href="/chain">A chain of queries</a></li>
+      <li><a href="/multi_query">Multiple queries executed with gen.Task</a></li>
+      <li><a href="/callback_and_wait">Multiple queries executed with gen.Callback and gen.Wait</a></li>
+    </ul>
+  </body>
+</html>

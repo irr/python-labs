@@ -1,0 +1,103 @@
+#!/bin/sh
+#
+# nutcracker - this script starts and stops the nutcracker-server daemon
+#
+# chkconfig:   - 85 15 
+# description: Nutcracker is a proxy-server to Redis and/or Memcached 
+# processname: nutcracker-server
+# config:      /etc/nutcracker/nutcracker.conf
+# config:      /etc/sysconfig/nutcracker
+# pidfile:     /var/run/nutcracker.pid
+ 
+# Source function library.
+. /etc/rc.d/init.d/functions
+ 
+# Source networking configuration.
+. /etc/sysconfig/network
+ 
+# Check that networking is up.
+[ "$NETWORKING" = "no" ] && exit 0
+ 
+nutcracker="/opt/twemproxy/bin/nutcracker"
+prog=$(basename $nutcracker)
+ 
+NUTCRACKER_CONF_FILE="/etc/nutcracker/nutcracker.yml"
+ 
+[ -f /etc/sysconfig/nutcracker ] && . /etc/sysconfig/nutcracker
+ 
+lockfile=/var/lock/subsys/nutcracker
+pidfile=/var/run/nutcracker.pid
+ 
+start() {
+    [ -x $nutcracker ] || exit 5
+    [ -f $NUTCRACKER_CONF_FILE ] || exit 6
+    echo -n $"Starting $prog: "
+    daemon $nutcracker -d -v6 -o /var/log/nutcracker.log -p $pidfile -c $NUTCRACKER_CONF_FILE
+    retval=$?
+    echo
+    [ $retval -eq 0 ] && touch $lockfile
+    return $retval
+}
+ 
+stop() {
+    echo -n $"Stopping $prog: "
+    killproc $prog -QUIT
+    retval=$?
+    echo
+    [ $retval -eq 0 ] && rm -f $lockfile
+    return $retval
+}
+ 
+restart() {
+    stop
+    start
+}
+ 
+reload() {
+    echo -n $"Reloading $prog: "
+    killproc $nutcracker -HUP
+    RETVAL=$?
+    echo
+}
+ 
+force_reload() {
+    restart
+}
+ 
+rh_status() {
+    status $prog
+}
+ 
+rh_status_q() {
+    rh_status >/dev/null 2>&1
+}
+ 
+case "$1" in
+    start)
+        rh_status_q && exit 0
+        $1
+        ;;
+    stop)
+        rh_status_q || exit 0
+        $1
+        ;;
+    restart|configtest)
+        $1
+       ;;
+    reload)
+        rh_status_q || exit 7
+        $1
+        ;;
+    force-reload)
+        force_reload
+        ;;
+    status)
+        rh_status
+        ;;
+    condrestart|try-restart)
+        rh_status_q || exit 0
+      ;;
+    *)
+        echo $"Usage: $0 {start|stop|status|restart|condrestart|try-restart|reload|force-reload}"
+        exit 2
+esac

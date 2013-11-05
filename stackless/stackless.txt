@@ -1,0 +1,10 @@
+sudo yum groupinstall "Development tools"
+sudo yum install expat-devel gdbm-devel zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel xz-devel libevent-devel libffi-devel compat-gdbm-devel zlib-devel tkimg-devel bzip2-devel
+
+./configure --prefix=/opt/python/stackless
+make -j4
+make install
+
+virtualenv --no-site-packages --distribute -p /opt/python/stackless/bin/python dev7
+
+pip install -v httpie gevent iptools pycrypto redis pycassa umysql

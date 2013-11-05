@@ -1,0 +1,43 @@
+PIP
+===
+Check versions
+pip freeze | cut -d = -f 1 | xargs -n 1 pip search | grep -B2 'LATEST:'
+
+Update all
+pip install -U `yolk -U | awk '{print $1}' | uniq`
+pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs pip install -U
+
+MySQL
+=====
+easy_install -U distribute 
+pip install MySQL-python
+
+Misc
+====
+pip install -v httpie yolk tornado==2.4.1 iptools python-memcached eventlet pymongo pycassa redis psutil pycrypto cffi MySQL-python==1.2.3
+
+pip install -v httpie yolk iptools python-memcached eventlet pymongo pycassa redis psutil pycrypto cffi 
+
+pip install -v gevent bottle bottle-sqlite bottle-redis bottle-memcache bottle-mongodb
+
+scikit-learn
+===========
+
+sudo apt-get install libatlas-dev
+sudo yum install atlas-devel
+pip install -v numpy
+
+sudo apt-get install libfreetype6-dev libpng12-dev 
+sudo yum install freetype-devel libpng-devel
+pip install -v matplotlib
+
+sudo apt-get install libblas-dev liblapack-dev gfortran
+sudo yum install blas-devel lapack-devel gcc-gfortran
+pip install -v scipy
+
+pip install -v scikit-learn
+
+CentOS
+=====
+sudo yum install gcc gcc-c++ numpy python-devel scipy python-matplotlib
+sudo pip install -v scikit-learn

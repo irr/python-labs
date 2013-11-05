@@ -1,0 +1,31 @@
+#!/bin/sh
+
+# 1. Save this as /etc/sv/[app_name]/run (make it executable, chmod u+x)
+# 2. Then run ln -s /etc/sv/[app_name] /etc/service/[app_name]
+# 3. If runit is installed, gunicorn should start running automatically
+#    as soon as you create the symlink.
+
+# Install:
+# cd /home/irocha/python/gunicorn
+# mkdir -p /etc/sv/test
+# cp run /etc/sv/test/
+# chmod 755 /etc/sv/test/run
+# ln -s /etc/sv/test /etc/service/test
+
+# Uninstall
+# rm -rf /etc/sv/test /etc/service/test
+
+# commands
+# sv status test
+# sv [start|stop|restart] test
+
+GUNICORN=/usr/bin/gunicorn
+ROOT=/home/irocha/git/python-labs/gunicorn
+PID=/tmp/gunicorn.pid
+
+APP=test:app
+
+if [ -f $PID ]; then rm $PID; fi
+
+cd $ROOT
+exec $GUNICORN -c $ROOT/gunicorn.conf.py --log-config $ROOT/logging-console.conf --pid=$PID $APP

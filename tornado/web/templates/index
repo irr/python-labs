@@ -1,0 +1,1 @@
+op -cmd {{ cmd }} -value {{ value }}
