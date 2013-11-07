@@ -8,3 +8,4 @@ make install
 virtualenv --no-site-packages --distribute -p /opt/python/stackless/bin/python dev7
 
 pip install -v httpie gevent iptools pycrypto redis pycassa umysql
+mysql-connector-python DBUtils PyMySQL
