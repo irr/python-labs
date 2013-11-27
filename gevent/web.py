@@ -1,7 +1,10 @@
 import gevent
+from gevent import monkey
 from gevent.pywsgi import WSGIServer
 
-import redis, umysql, json, logging, logging.handlers
+import umysql, json, logging, logging.handlers
+
+import redis
 redis.connection.socket = gevent.socket
 
 G = { "mysql": None, 
@@ -102,5 +105,3 @@ if __name__ == "__main__":
     logging.info('Listening on 8000...')
     gevent.spawn(pools, ["redis", "mysql"])
     WSGIServer(('', 8000), application).serve_forever()
-
-# httperf --server localhost --port 8000 --num-calls 100 --rate 100 --num-conns 100
