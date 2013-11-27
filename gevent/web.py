@@ -6,26 +6,26 @@ import redis, umysql, json, logging, logging.handlers
 
 monkey.patch_all()
 
-G = { "mysql_ptr": None, 
-      "mysql_fun": "mysql_init", 
-      "redis_ptr": None, 
-      "redis_fun": "redis_init" }
+G = { "mysql": None, 
+      "redis": None }
 
 def redis_init():
+    global G
     try:
-        globals()["G"]["redis_ptr"] = redis.StrictRedis(host='localhost', port=6379, db=0)
+        G["redis"] = redis.StrictRedis(host='localhost', port=6379, db=0)
     except Exception as ex:
         res = str(ex)
         logging.error(ex)
 
 def mysql_init():
+    global G
     try:
-        globals()["G"]["mysql_ptr"] = umysql.Connection()  
-        globals()["G"]["mysql_ptr"].connect("127.0.0.1", 3306, "root", "mysql", "mysql")
+        G["mysql"] = umysql.Connection()  
+        G["mysql"].connect("127.0.0.1", 3306, "root", "mysql", "mysql")
     except Exception as ex:
         res = str(ex)
         logging.error(ex)
-        globals()["G"]["mysql_ptr"] = None        
+        G["mysql"] = None        
 
 
 LOG_LEVEL = logging.DEBUG
@@ -42,11 +42,12 @@ mysql_init()
 
 
 def pools(names):
+    global G
     while True:
         try:        
             for name in names:
-                if globals()["G"]["%s_ptr" % name] == None:
-                    globals()[globals()["G"]["%s_fun" % name]]()
+                if G[name] == None:
+                    globals()["%s_init" % name]()
         except Exception as ex:
             logging.error(str(ex))
         finally:
@@ -64,12 +65,14 @@ def task(name, response):
 
 
 def redis(response):
-    ptr = globals()["G"]["redis_ptr"]
+    global G
+    ptr = G["redis"]
     return ptr.info()
 
 
 def mysql(response):
-    ptr = globals()["G"]["mysql_ptr"]
+    global G
+    ptr = G["mysql"]
     if ptr == None:
         return None
     try:
@@ -82,7 +85,7 @@ def mysql(response):
         try:
             ptr.close()
         finally:
-            globals()["G"]["mysql_ptr"] = None
+            G["mysql"] = None
             raise ex
 
 
