@@ -1,10 +1,8 @@
 from gevent import monkey
 monkey.patch_all()
 
-import gevent
+import gevent, redis, umysql, json, logging, logging.handlers
 from gevent.pywsgi import WSGIServer
-
-import redis, umysql, json, logging, logging.handlers     
 
 LOG_LEVEL = logging.DEBUG
 LOG_FORMAT = '[%(levelname)1.1s %(asctime)s %(module)s:%(lineno)d] %(message)s'
@@ -26,6 +24,7 @@ def mysql_exec(response):
     res = []
     for h in rs.rows:
         res.append(h[0])
+    db.close()
     return res
 
 
@@ -48,4 +47,4 @@ def application(env, start_response):
 
 if __name__ == "__main__":
     logging.info('Listening on 8000...')
-    WSGIServer(('', 8000), application).serve_forever()
+    gevent.pywsgi.WSGIServer(('', 8000), application).serve_forever()
