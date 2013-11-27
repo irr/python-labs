@@ -1,16 +1,107 @@
-"""WSGI server example"""
+import gevent
+from gevent import monkey
 from gevent.pywsgi import WSGIServer
+
+import redis, umysql, json, logging, logging.handlers
+
+monkey.patch_all()
+
+G = { "mysql_ptr": None, 
+      "mysql_fun": "mysql_init", 
+      "redis_ptr": None, 
+      "redis_fun": "redis_init" }
+
+def redis_init():
+    #from redis.connection import UnixDomainSocketConnection
+    #pool = redis.ConnectionPool(connection_class=UnixDomainSocketConnection, path = '/tmp/redis.sock')
+    try:
+        pool = redis.ConnectionPool(host='localhost', port=6379, db=0)
+        globals()["G"]["redis_ptr"] = redis.Redis(connection_pool = pool)
+    except Exception as ex:
+        res = str(ex)
+        logging.error(ex)
+        globals()["G"]["redis_ptr"] = None         
+
+def mysql_init():
+    try:
+        globals()["G"]["mysql_ptr"] = umysql.Connection()  
+        globals()["G"]["mysql_ptr"].connect("127.0.0.1", 3306, "root", "mysql", "mysql")
+    except Exception as ex:
+        res = str(ex)
+        logging.error(ex)
+        globals()["G"]["mysql_ptr"] = None        
+
+
+LOG_LEVEL = logging.DEBUG
+LOG_FORMAT = '[%(levelname)1.1s %(asctime)s %(module)s:%(lineno)d] %(message)s'
+SYSLOG = logging.handlers.SysLogHandler(address='/dev/log')
+SYSLOG.setFormatter(logging.Formatter(LOG_FORMAT))
+
+logging.basicConfig(format=LOG_FORMAT)
+#logging.getLogger().addHandler(SYSLOG)
+logging.getLogger().setLevel(LOG_LEVEL)
+
+redis_init()
+mysql_init()
+
+def pools(names):
+    while True:
+        try:        
+            for name in names:
+                if globals()["G"]["%s_ptr" % name] == None:
+                    globals()[globals()["G"]["%s_fun" % name]]()
+        except Exception as ex:
+            res = str(ex)
+            logging.error(ex)        
+        finally:
+            gevent.sleep(10)
+
+def task(name, response):
+    res = None
+    try:
+        res = globals()[name](response)
+    except Exception as ex:
+        res = str(ex)
+        logging.error(ex)     
+        globals()["G"]["%s_ptr" % name] = None
+    finally:
+        return res
+
+
+def redis(response):
+    ptr = globals()["G"]["redis_ptr"]
+    if ptr == None:
+        return None
+    return ptr.info()
+
+
+def mysql(response):
+    ptr = globals()["G"]["mysql_ptr"]
+    if ptr == None:
+        return None
+    rs = ptr.query("SELECT Host FROM user WHERE User = 'root'")
+    res = []
+    for h in rs.rows:
+        res.append(h[0])
+    return res
 
 
 def application(env, start_response):
-    if env['PATH_INFO'] == '/':
-        start_response('200 OK', [('Content-Type', 'text/html')])
-        return ["<b>hello world</b>"]
+    if env["PATH_INFO"] == '/':  
+        response = {}
+        g1 = gevent.spawn(task, "redis", response)
+        g2 = gevent.spawn(task, "mysql", response)
+        gevent.joinall([g1, g2])
+        response["redis"] = g1.value
+        response["mysql"] = g2.value
+        start_response("200 OK", [("Content-Type", "application/json")])
+        return [json.dumps(response)]
     else:
-        start_response('404 Not Found', [('Content-Type', 'text/html')])
-        return ['<h1>Not Found</h1>']
+        start_response("404 Not Found", [("Content-Type", "application/json")])
+        return ["Not Found"]
 
 
-if __name__ == '__main__':
-    print 'Serving on 8000...'
+if __name__ == "__main__":
+    logging.info('Listening on 8000...')
+    gevent.spawn(pools, ["redis", "mysql"])
     WSGIServer(('', 8000), application).serve_forever()
