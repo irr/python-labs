@@ -12,15 +12,11 @@ G = { "mysql_ptr": None,
       "redis_fun": "redis_init" }
 
 def redis_init():
-    #from redis.connection import UnixDomainSocketConnection
-    #pool = redis.ConnectionPool(connection_class=UnixDomainSocketConnection, path = '/tmp/redis.sock')
     try:
-        pool = redis.ConnectionPool(host='localhost', port=6379, db=0)
-        globals()["G"]["redis_ptr"] = redis.Redis(connection_pool = pool)
+        globals()["G"]["redis_ptr"] = redis.StrictRedis(host='localhost', port=6379, db=0)
     except Exception as ex:
         res = str(ex)
         logging.error(ex)
-        globals()["G"]["redis_ptr"] = None         
 
 def mysql_init():
     try:
@@ -51,8 +47,7 @@ def pools(names):
                 if globals()["G"]["%s_ptr" % name] == None:
                     globals()[globals()["G"]["%s_fun" % name]]()
         except Exception as ex:
-            res = str(ex)
-            logging.error(ex)        
+            logging.error(str(ex))
         finally:
             gevent.sleep(10)
 
@@ -61,17 +56,13 @@ def task(name, response):
     try:
         res = globals()[name](response)
     except Exception as ex:
-        res = str(ex)
-        logging.error(ex)     
-        globals()["G"]["%s_ptr" % name] = None
+        logging.error(str(ex))
     finally:
         return res
 
 
 def redis(response):
     ptr = globals()["G"]["redis_ptr"]
-    if ptr == None:
-        return None
     return ptr.info()
 
 
@@ -79,11 +70,18 @@ def mysql(response):
     ptr = globals()["G"]["mysql_ptr"]
     if ptr == None:
         return None
-    rs = ptr.query("SELECT Host FROM user WHERE User = 'root'")
-    res = []
-    for h in rs.rows:
-        res.append(h[0])
-    return res
+    try:
+        rs = ptr.query("SELECT Host FROM user WHERE User = 'root'")
+        res = []
+        for h in rs.rows:
+            res.append(h[0])
+        return res
+    except Exception as ex:
+        try:
+            ptr.close()
+        finally:
+            globals()["G"]["mysql_ptr"] = None
+            raise ex
 
 
 def application(env, start_response):
@@ -92,13 +90,15 @@ def application(env, start_response):
         g1 = gevent.spawn(task, "redis", response)
         g2 = gevent.spawn(task, "mysql", response)
         gevent.joinall([g1, g2])
-        response["redis"] = g1.value
-        response["mysql"] = g2.value
+        response["redis"], response["mysql"] = g1.value, g2.value
+        if g1.value == None or g2.value == None:
+            start_response("503 Service Unavailable", [("Content-Type", "application/json")])
+            return []
         start_response("200 OK", [("Content-Type", "application/json")])
         return [json.dumps(response)]
     else:
         start_response("404 Not Found", [("Content-Type", "application/json")])
-        return ["Not Found"]
+        return []
 
 
 if __name__ == "__main__":
