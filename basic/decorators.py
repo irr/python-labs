@@ -1,3 +1,5 @@
+from functools import wraps
+
 class wrapperClass(object):
     def __init__(self, f):
         print "\ninside wrapperClass.__init__(): %s" % f
@@ -15,6 +17,7 @@ def func1(*args):
 print "finished decorating func1() and ready to call it!\n"
 
 def wrapperFunc(f):
+    @wraps(f)
     def new_f(*args):
         print "entering %s: %s" % (f.__name__, f)
         f(*args)
