@@ -41,3 +41,7 @@ CentOS
 =====
 sudo yum install gcc gcc-c++ numpy python-devel scipy python-matplotlib
 sudo pip install -v scikit-learn
+
+DEV
+===
+pip install -v httpie gevent iptools pycrypto redis umysql
