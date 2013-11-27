@@ -27,7 +27,6 @@ def mysql_exec(response):
     db.close()
     return res
 
-
 def application(env, start_response):
     if env["PATH_INFO"] == '/':  
         response = {}
@@ -43,7 +42,6 @@ def application(env, start_response):
     else:
         start_response("404 Not Found", [("Content-Type", "application/json")])
         return []
-
 
 if __name__ == "__main__":
     logging.info('Listening on 8000...')
