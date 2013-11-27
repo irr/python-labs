@@ -1,10 +1,8 @@
 import gevent
-from gevent import monkey
 from gevent.pywsgi import WSGIServer
 
-import umysql, json, logging, logging.handlers
+import redis, umysql, json, logging, logging.handlers
 
-import redis
 redis.connection.socket = gevent.socket
 
 G = { "mysql": None, 
