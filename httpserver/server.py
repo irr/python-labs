@@ -12,7 +12,7 @@ class SlowHandler(BaseHTTPRequestHandler):
         self.end_headers()
 
         self.wfile.write("Entered GET request handler")
-        time.sleep(3)
+        #time.sleep(3)
         self.wfile.write("\nSending response!")
 
 def test(HandlerClass = SlowHandler,
