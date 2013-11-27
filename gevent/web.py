@@ -40,6 +40,7 @@ logging.getLogger().setLevel(LOG_LEVEL)
 redis_init()
 mysql_init()
 
+
 def pools(names):
     while True:
         try:        
@@ -50,6 +51,7 @@ def pools(names):
             logging.error(str(ex))
         finally:
             gevent.sleep(10)
+
 
 def task(name, response):
     res = None
