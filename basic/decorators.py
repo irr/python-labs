@@ -48,3 +48,22 @@ func2(4, "5", 6, {"y":7, "z":8})
 # entering func2: <function func2 at 0x7f...7fdcb90>
 # inside func2()[(4, '5', 6, {'y': 7, 'z': 8})](4)
 # exited func2: <function func2 at 0x7f...7fdcb90>
+
+from itertools import chain
+def foo(a,b,c,d):
+        print a,b,c,d
+
+print "itertools(chain):"
+tup1 = (1,2)
+tup2 = (3,4)
+print "using tuples..."
+foo(*chain(tup1,tup2))
+
+print "using lists..."
+foo(*chain(list(tup1),list(tup2)))
+
+from functools import partial
+goo = partial(partial(partial(foo, 11), 22), 33)
+print "\nitertools(partial,aka curry):"
+print "foo:%s\ngoo:%s" % (foo,goo)
+goo(44)
