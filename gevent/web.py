@@ -1,15 +1,15 @@
 from gevent import monkey; monkey.patch_all()
 from bottle import route, run, response, abort
 
-import gevent, redis, umysql, json, logging, logging.handlers
+import sys, argparse, logging, logging.handlers, gevent, redis, umysql, json
 
 LOG_LEVEL = logging.DEBUG
 LOG_FORMAT = '[%(levelname)1.1s %(asctime)s %(module)s:%(lineno)d] %(message)s'
+
 SYSLOG = logging.handlers.SysLogHandler(address='/dev/log')
 SYSLOG.setFormatter(logging.Formatter(LOG_FORMAT))
 
 logging.basicConfig(format=LOG_FORMAT)
-#logging.getLogger().addHandler(SYSLOG)
 logging.getLogger().setLevel(LOG_LEVEL)
 
 def redis_exec(response):
@@ -36,6 +36,14 @@ def application():
         abort(503, "Sorry, service unavailable.")
     return json.dumps({"redis": g1.value["run_id"], "mysql":g2.value})[:1024]
 
+
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-s', '--syslog', 
+                        dest="syslog", 
+                        action='store_true', 
+                        help="enable syslog")
+    if parser.parse_args().syslog:
+        logging.getLogger().addHandler(SYSLOG)
     logging.info('Listening on 8000...')
     run(host='localhost', port=8000, server='gevent')
