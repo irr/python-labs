@@ -1,8 +1,7 @@
-from gevent import monkey
-monkey.patch_all()
+from gevent import monkey; monkey.patch_all()
+from bottle import route, run, response, abort
 
 import gevent, redis, umysql, json, logging, logging.handlers
-from gevent.pywsgi import WSGIServer
 
 LOG_LEVEL = logging.DEBUG
 LOG_FORMAT = '[%(levelname)1.1s %(asctime)s %(module)s:%(lineno)d] %(message)s'
@@ -27,22 +26,16 @@ def mysql_exec(response):
     db.close()
     return res
 
-def application(env, start_response):
-    if env["PATH_INFO"] == '/':  
-        response = {}
-        g1 = gevent.spawn(redis_exec, response)
-        g2 = gevent.spawn(mysql_exec, response)
-        gevent.joinall([g1, g2])
-        response["redis"], response["mysql"] = g1.value["run_id"], g2.value
-        if g1.value == None or g2.value == None:
-            start_response("503 Service Unavailable", [("Content-Type", "application/json")])
-            return []
-        start_response("200 OK", [("Content-Type", "application/json")])
-        return [json.dumps(response)[:1024]]
-    else:
-        start_response("404 Not Found", [("Content-Type", "application/json")])
-        return []
+@route('/')
+def application():
+    response.content_type = 'application/json; charset=utf-8'
+    g1 = gevent.spawn(redis_exec, response)
+    g2 = gevent.spawn(mysql_exec, response)
+    gevent.joinall([g1, g2])
+    if g1.value == None or g2.value == None:
+        abort(503, "Sorry, service unavailable.")
+    return json.dumps({"redis": g1.value["run_id"], "mysql":g2.value})[:1024]
 
 if __name__ == "__main__":
     logging.info('Listening on 8000...')
-    gevent.pywsgi.WSGIServer(('', 8000), application).serve_forever()
+    run(host='localhost', port=8000, server='gevent')
