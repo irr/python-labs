@@ -20,7 +20,7 @@ Libraries
 -----------
 
 ```shell
-pip install -v httpie gevent iptools pycrypto redis umysql funcy bottle
+pip install -v httpie gevent iptools pycrypto redis umysql bottle
 ```
 
 * [Stackless]: Stackless Python is an enhanced version of the Python programming language. It allows programmers to reap the benefits of thread-based programming without the performance and complexity problems associated with conventional threads. The microthreads that Stackless adds to Python are a cheap and lightweight convenience which can if used properly, give several benefits
