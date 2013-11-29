@@ -39,7 +39,8 @@ pip install -v scikit-learn
 
 CentOS
 =====
-sudo yum install gcc gcc-c++ numpy python-devel scipy python-matplotlib
+sudo yum install gcc gcc-c++ numpy python-devel scipy python-matplotlib 
+sudo yum install python-devel dvipng
 sudo pip install -v scikit-learn PIL pillow sphinx
 cd doc
 make html
