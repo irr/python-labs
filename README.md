@@ -10,10 +10,12 @@ yum install expat-devel gdbm-devel zlib-devel bzip2-devel openssl-devel ncurses-
 ```
 
 ```shell
-./configure --enable-shared --prefix=/opt/python/stackless
+wget http://python.org/ftp/python/2.7.6/Python-2.7.6.tgz
+tar xfva Python-2.7.6.tgz
+cd Python-2.7.6
+./configure --enable-shared --prefix=/usr/local
 make -j4
-make install
-virtualenv --no-site-packages --distribute -p /opt/python/stackless/bin/python dev7
+make altinstall
 ```
 
 Libraries
@@ -22,8 +24,6 @@ Libraries
 ```shell
 pip install -v httpie gevent iptools pycrypto redis umysql bottle psutil glances PyInstaller
 ```
-
-* [Stackless]: Stackless Python is an enhanced version of the Python programming language. It allows programmers to reap the benefits of thread-based programming without the performance and complexity problems associated with conventional threads. The microthreads that Stackless adds to Python are a cheap and lightweight convenience which can if used properly, give several benefits
 
 Copyright and License
 ---------------------
@@ -41,5 +41,4 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-[Stackless]: http://www.stackless.com/
 [Python]: http://python.org/
