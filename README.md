@@ -10,7 +10,7 @@ yum install expat-devel gdbm-devel zlib-devel bzip2-devel openssl-devel ncurses-
 ```
 
 ```shell
-./configure --prefix=/opt/python/stackless
+./configure --enable-shared --prefix=/opt/python/stackless
 make -j4
 make install
 virtualenv --no-site-packages --distribute -p /opt/python/stackless/bin/python dev7
@@ -20,7 +20,7 @@ Libraries
 -----------
 
 ```shell
-pip install -v httpie gevent iptools pycrypto redis umysql bottle psutil glances
+pip install -v httpie gevent iptools pycrypto redis umysql bottle psutil glances PyInstaller
 ```
 
 * [Stackless]: Stackless Python is an enhanced version of the Python programming language. It allows programmers to reap the benefits of thread-based programming without the performance and complexity problems associated with conventional threads. The microthreads that Stackless adds to Python are a cheap and lightweight convenience which can if used properly, give several benefits
