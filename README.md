@@ -22,7 +22,7 @@ Libraries
 -----------
 
 ```shell
-pip install -v httpie gevent iptools pycrypto redis umysql bottle psutil glances PyInstaller
+pip install -v httpie gevent grequests iptools pycrypto redis umysql bottle psutil glances PyInstaller
 ```
 
 Copyright and License
