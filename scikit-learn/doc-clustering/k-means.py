@@ -48,9 +48,6 @@ op.add_option("--verbose",
               action="store_true", dest="verbose", default=False,
               help="Print progress reports inside k-means algorithm.")
 
-print(__doc__)
-op.print_help()
-
 (opts, args) = op.parse_args()
 if len(args) > 0:
     op.error("this script takes no arguments.")
