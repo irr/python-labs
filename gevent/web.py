@@ -45,8 +45,8 @@ if __name__ == "__main__":
                         help="enable syslog (default: disabled)")
     parser.add_argument('-b', '--bind', 
                         dest="bind", 
-                        default="localhost",
-                        help="bind address (default: localhost)")
+                        default="0.0.0.0",
+                        help="bind address (default: 0.0.0.0)")
     parser.add_argument('-p', '--port', 
                         dest="port", 
                         type=int,
