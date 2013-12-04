@@ -34,7 +34,7 @@ def application():
     gevent.joinall([g1, g2])
     if g1.value == None or g2.value == None:
         abort(503, "Sorry, service unavailable.")
-    return json.dumps({"redis": g1.value["run_id"], "mysql":g2.value})[:1024]
+    return "%s\n" % json.dumps({"redis": g1.value["run_id"], "mysql":g2.value})[:1024]
 
 
 if __name__ == "__main__":
