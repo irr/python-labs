@@ -7,3 +7,6 @@ docker stop redis
 docker start redis
 docker rm redis
 docker rmi irr/redis
+
+docker commit <container id> irr/bash
+docker run -i -t irr/bash /bin/bash
