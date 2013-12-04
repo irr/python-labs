@@ -1,5 +1,3 @@
-# docker build -t irr/tomcat7 -rm .
-# docker run -d -p 8080:8080 -name tomcat7-1 irr/tomcat7
 FROM irr/jdk7-oracle
 RUN apt-get -y install tomcat7
 RUN echo "JAVA_HOME=/usr/lib/jvm/java-7-oracle" >> /etc/default/tomcat7
