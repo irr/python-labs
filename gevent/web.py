@@ -43,7 +43,13 @@ if __name__ == "__main__":
                         dest="syslog", 
                         action='store_true', 
                         help="enable syslog")
-    if parser.parse_args().syslog:
+    parser.add_argument('-p', '--port', 
+                        dest="port", 
+                        type=int,
+                        default=8000,
+                        help="listen port")
+    args = parser.parse_args()
+    if args.syslog:
         logging.getLogger().addHandler(SYSLOG)
-    logging.info('Listening on 8000...')
-    run(host='localhost', port=8000, server='gevent')
+    logging.info('Listening on %d...' % args.port)
+    run(host='localhost', port=args.port, server='gevent')
