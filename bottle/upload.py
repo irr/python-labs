@@ -9,12 +9,12 @@ def do_form():
   <meta charset="utf-8">
   <title>Upload Test</title>
 </head>
-
 <body>
 <form action="/upload" method="post" 
       enctype="multipart/form-data">
-  <input type="file" name="data" />
-  <input type="submit" value="Send" />
+  <textarea name=meta rows=10 cols=60>{"name":"test.png"}</textarea><br/>
+  <input type="file" name="data"/>
+  <input type="submit" value="POST data" />
 </form>
 </body>
 </html>
@@ -22,18 +22,17 @@ def do_form():
     response.content_type = 'text/html; charset=utf-8'
     return form
 
-
 @route('/upload', method='POST')
 def do_upload():
+    meta = request.forms.meta
     data = request.files.get("data")
     if data and data.file:
         raw = data.file.read()
         filename = data.filename
-        # 0.12 - data.save("/tmp/%s" % filename)
         with open("/tmp/%s" % filename, 'w+') as open_file:
             open_file.write(raw)
-        return "You uploaded %s (%d bytes)." % (filename, len(raw))
-
+        return "<b>Metadata:</b><br/>%s<hr/>You uploaded <b>%s</b> (<b>%d</b> bytes)." \
+                % (meta, filename, len(raw))
     return "You missed a field."
 
 run(host='localhost', port=8080, debug=True, reloader=True)
