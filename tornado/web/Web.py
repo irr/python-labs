@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-import sys, os, signal, logging, logging.handlers
-
 import tornado.httpserver
 import tornado.ioloop
 import tornado.options
@@ -14,11 +12,13 @@ from tornado.options import define, options
 from utils import *
 from handlers import *
 
+import sys, os, signal, logging, logging.handlers
+
 define("port", default=8888, type=int)
 define("syslog", default=False, type=bool)
 
 # curl -v http://localhost:8888/;echo
-# python Web.py --logging=debug
+# python -B Web.py --logging=debug
 
 class WebApplication(tornado.web.Application):
     def __init__(self, **kwargs):

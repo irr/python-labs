@@ -1,13 +1,8 @@
+from tornado.web import RequestHandler
+from tornado.template import Template
+from tornado.escape import json_encode, json_decode
+
 import time
-
-try:
-    from tornado.web import RequestHandler
-    from tornado.template import Template, ParseError
-    from tornado.escape import json_encode, json_decode
-except ImportError as ierror:
-    import sys
-    sys.exit('Tornado required: http://www.tornadoweb.org/')
-
 from utils import *
 
 class IndexHandler(RequestHandler):
