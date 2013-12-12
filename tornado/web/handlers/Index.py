@@ -55,13 +55,18 @@ class IndexHandler(RequestHandler):
         raise tornado.gen.Return(info)
 
     @tornado.gen.coroutine
+    def _mysql(self):
+        db = torndb.Connection(self.mysql['host'], self.mysql['database'], 
+                               user=self.mysql['user'], password=self.mysql['password'])
+        hosts = [host for host in db.query("SELECT Host FROM user WHERE User = 'root'")]
+        raise tornado.gen.Return(hosts)
+
+    @tornado.gen.coroutine
     def _handle(self, **kwargs):
         IndexHandler._customize(self)
         db = None
         try:   
-            db = torndb.Connection(self.mysql['host'], self.mysql['database'], 
-                                   user=self.mysql['user'], password=self.mysql['password'])
-            hosts = [host for host in db.query("SELECT Host FROM user WHERE User = 'root'")]
+            hosts = yield tornado.gen.Task(self._mysql)
             info = yield tornado.gen.Task(self._redis)
             data = { 'cmd': "any", 'value': str(int(time.time())) }
             response = { 'status': 200,
