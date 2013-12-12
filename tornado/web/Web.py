@@ -7,12 +7,13 @@ import tornado.web
 import tornado.escape
 import tornado.template
 import tornado.autoreload
+
 from tornado.options import define, options
 
 from utils import *
 from handlers import *
 
-import sys, os, signal, logging, logging.handlers
+import tornadoredis, sys, os, signal, logging, logging.handlers
 
 define("port", default=8888, type=int)
 define("syslog", default=False, type=bool)
@@ -22,6 +23,8 @@ define("syslog", default=False, type=bool)
 
 class WebApplication(tornado.web.Application):
     def __init__(self, **kwargs):
+        kwargs["redis"] = tornadoredis.ConnectionPool(max_connections=10,
+                                                      wait_for_available=True)
         handlers = [(r"/", IndexHandler, kwargs)]
         tornado.web.Application.__init__(self, handlers)
 
@@ -53,7 +56,7 @@ def main():
         signal.signal(signal.SIGTERM, shutdown_hook)
         logger.info('listening on port [%d]' % options.port)
         http_server = tornado.httpserver.HTTPServer(WebApplication(**dict(logger=logger)))
-        http_server.bind(8888)
+        http_server.bind(options.port)
         if logging.getLogger().isEnabledFor(logging.DEBUG):
             logger.debug("autoreload enabled")
             tornado.autoreload.start()
