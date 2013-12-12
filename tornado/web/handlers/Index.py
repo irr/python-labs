@@ -48,7 +48,6 @@ class IndexHandler(RequestHandler):
         self.set_header("Server", "IRR")
         self.set_header("Content-Type", "application/json; charset=UTF-8")
 
-    @tornado.web.asynchronous
     @tornado.gen.engine
     def _handle(self, **kwargs):
         IndexHandler._customize(self)
@@ -59,7 +58,7 @@ class IndexHandler(RequestHandler):
             hosts = [host for host in db.query("SELECT Host FROM user WHERE User = 'root'")]
             info = yield tornado.gen.Task(self.redis.info)
             yield tornado.gen.Task(self.redis.disconnect)
-            data = { 'cmd': "any", 'value': str(time.time()) }
+            data = { 'cmd': "any", 'value': str(int(time.time())) }
             response = { 'status': 200,
                          'msg': self.template.generate(**data),
                          'redis': info['redis_version'],
@@ -74,6 +73,7 @@ class IndexHandler(RequestHandler):
         self.write(json_encode(response))
         self.finish()
 
+    @tornado.web.asynchronous
     def get(self):        
         self._handle()
 
