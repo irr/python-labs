@@ -27,7 +27,7 @@ class WebApplication(tornado.web.Application):
                                                       wait_for_available = True)
         kwargs["mysql"] = { 'host':'localhost', 'database':'mysql', 
                             'user':'root', 'password':'mysql' }
-        handlers = [(r"/", IndexHandler, kwargs)]
+        handlers = [(r"/", IndexHandler, kwargs), (r"/ls", CmdHandler)]
         tornado.web.Application.__init__(self, handlers)
 
 def shutdown():

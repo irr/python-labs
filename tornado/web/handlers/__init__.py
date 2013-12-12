@@ -1,1 +1,1 @@
-from handlers.Index import IndexHandler
+from handlers.Index import IndexHandler, CmdHandler
