@@ -22,11 +22,8 @@ define("syslog", default=False, type=bool)
 
 class WebApplication(tornado.web.Application):
     def __init__(self, **kwargs):
-        path = os.path.join(os.path.dirname(__file__), "templates")
-        kwargs.update(dict(template=path))
         handlers = [(r"/", IndexHandler, kwargs)]
-        settings = dict(static_path=path)
-        tornado.web.Application.__init__(self, handlers, **settings)
+        tornado.web.Application.__init__(self, handlers)
 
 def shutdown():
     io_loop = tornado.ioloop.IOLoop.instance()
