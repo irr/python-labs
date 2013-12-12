@@ -39,4 +39,4 @@ make html
 
 DEV
 ===
-pip install -v httpie sphinx iptools pycrypto redis tornado tornado-redis torndb psutil glances
+pip install -v httpie iptools pycrypto redis tornado tornado-redis torndb MySQL-python psutil glances pyinstaller
