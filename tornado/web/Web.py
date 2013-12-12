@@ -23,8 +23,9 @@ define("syslog", default=False, type=bool)
 
 class WebApplication(tornado.web.Application):
     def __init__(self, **kwargs):
-        kwargs["redis"] = tornadoredis.ConnectionPool(max_connections=10,
-                                                      wait_for_available=True)
+        kwargs["redis"] = tornadoredis.ConnectionPool(max_connections = 10,
+                                                      wait_for_available = True)
+        kwargs["mysql"] = { 'host':'localhost', 'database':'mysql', 'user':'root', 'password':'mysql' }
         handlers = [(r"/", IndexHandler, kwargs)]
         tornado.web.Application.__init__(self, handlers)
 
