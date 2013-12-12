@@ -29,7 +29,7 @@ class IndexHandler(RequestHandler):
         db = None
         try:   
             db = torndb.Connection(self.mysql['host'], self.mysql['database'], 
-                user=self.mysql['user'], password=self.mysql['password'])
+                                   user=self.mysql['user'], password=self.mysql['password'])
             hosts = [host for host in db.query("SELECT Host FROM user WHERE User = 'root'")]
             info = yield tornado.gen.Task(self.redis.info)
             yield tornado.gen.Task(self.redis.disconnect)
