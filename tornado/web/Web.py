@@ -46,8 +46,7 @@ def shutdown_hook(sig, frame):
     shutdown_poll()    
 
 def main():
-    global logger
-    global http_server
+    global logger, http_server
     signal.signal(signal.SIGTERM, shutdown_hook)
     tornado.options.parse_command_line()
     logger = Logger(options.logging, options.syslog)
