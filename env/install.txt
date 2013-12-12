@@ -12,14 +12,6 @@ MySQL
 easy_install -U distribute 
 pip install MySQL-python
 
-Misc
-====
-pip install -v httpie yolk tornado==2.4.1 iptools python-memcached eventlet pymongo pycassa redis psutil pycrypto cffi MySQL-python==1.2.3
-
-pip install -v httpie yolk iptools python-memcached eventlet pymongo pycassa redis psutil pycrypto cffi 
-
-pip install -v gevent bottle bottle-sqlite bottle-redis bottle-memcache bottle-mongodb
-
 scikit-learn
 ===========
 
@@ -47,4 +39,4 @@ make html
 
 DEV
 ===
-pip install -v httpie gevent iptools pycrypto redis umysql
+pip install -v httpie sphinx iptools pycrypto redis tornado tornado-redis torndb psutil glances
