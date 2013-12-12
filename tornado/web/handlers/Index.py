@@ -25,6 +25,5 @@ class IndexHandler(RequestHandler):
             response = { 'status': 500, 'msg': str(ex) }
         self.write(json_encode(response))
 
-    # curl -v http://localhost:8888/;echo
     def get(self):
         self._handle()
