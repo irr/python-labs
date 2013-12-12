@@ -47,10 +47,10 @@ def shutdown_hook(sig, frame):
 
 def main():
     global logger, http_server
+    tornado.options.parse_command_line()
     logger = Logger(options.logging, options.syslog)
     try:
         signal.signal(signal.SIGTERM, shutdown_hook)
-        tornado.options.parse_command_line()
         logger.info('listening on port [%d]' % options.port)
         http_server = tornado.httpserver.HTTPServer(WebApplication(**dict(logger=logger)))
         http_server.bind(8888)
