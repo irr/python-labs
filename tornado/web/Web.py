@@ -47,19 +47,20 @@ def shutdown_hook(sig, frame):
 
 def main():
     global logger, http_server
-    signal.signal(signal.SIGTERM, shutdown_hook)
-    tornado.options.parse_command_line()
     logger = Logger(options.logging, options.syslog)
-    logger.info('listening on port [%d]' % options.port)
-    http_server = tornado.httpserver.HTTPServer(WebApplication(**dict(logger=logger)))
-    http_server.listen(options.port)
     try:
+        signal.signal(signal.SIGTERM, shutdown_hook)
+        tornado.options.parse_command_line()
+        logger.info('listening on port [%d]' % options.port)
+        http_server = tornado.httpserver.HTTPServer(WebApplication(**dict(logger=logger)))
+        http_server.bind(8888)
         if logging.getLogger().isEnabledFor(logging.DEBUG):
             logger.debug("autoreload enabled")
             tornado.autoreload.start()
+        http_server.start(0)
         tornado.ioloop.IOLoop.instance().start()
     except BaseException as ex:
-        logger.error("exiting due: [%s]" % str(ex))
+        logger.error("exiting due: [%s]" % str(ex))        
 
 if __name__ == "__main__":
     main()
