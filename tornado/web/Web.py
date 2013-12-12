@@ -59,7 +59,7 @@ def main():
             logger.debug("autoreload enabled")
             tornado.autoreload.start()
         tornado.ioloop.IOLoop.instance().start()
-    except BaseException, ex:
+    except Exception, ex:
         logger.error("exiting due: [%s]" % str(ex))
 
 if __name__ == "__main__":
