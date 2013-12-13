@@ -3,7 +3,7 @@ import json
 
 @route('/', method='GET')
 def do_form():
-    meta = { 'id':1, 'name':'test.png' }
+    meta = { 'id':1, 'name':'alessandra' }
     form = """
           <!doctype html>
           <html lang="en">
@@ -29,11 +29,10 @@ def do_upload():
     meta = request.forms.meta
     data = request.files.get("data")
     if data and data.file:
-        raw = data.file.read()
-        filename = data.filename
-        data.save("/tmp/%s" % filename, overwrite=True, chunk_size=65536)
-        return "<b>Metadata:</b><br/>%s<hr/>You uploaded <b>%s</b> (<b>%d</b> bytes)." \
-                % (meta, filename, len(raw))
+        filename = "/tmp/%s" % data.filename
+        data.save(filename, overwrite=True, chunk_size=65536)
+        return "<b>Metadata:</b><br/>%s<hr/>You uploaded <b>%s</b>." \
+                % (meta, filename)
     return "You missed a field."
 
 run(host='0.0.0.0', port=8080, debug=True, reloader=True)
