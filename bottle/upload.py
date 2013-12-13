@@ -1,7 +1,9 @@
 from bottle import route, run, request, response
+import json
 
 @route('/', method='GET')
 def do_form():
+    meta = { 'id':1, 'name':'test.png' }
     form = """
 <!doctype html>
 <html lang="en">
@@ -12,13 +14,13 @@ def do_form():
 <body>
 <form action="/upload" method="post" 
       enctype="multipart/form-data">
-  <textarea name=meta rows=10 cols=60>{"name":"test.png"}</textarea><br/>
+  <textarea name=meta rows=10 cols=60>%s</textarea><br/>
   <input type="file" name="data"/>
   <input type="submit" value="POST data" />
 </form>
 </body>
 </html>
-    """
+    """ % (json.dumps(meta),)
     response.content_type = 'text/html; charset=utf-8'
     return form
 
