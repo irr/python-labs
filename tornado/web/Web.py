@@ -7,7 +7,7 @@ import tornado.web
 import tornado.escape
 import tornado.template
 import tornado.autoreload
-
+from tornado.process import cpu_count
 from tornado.options import define, options
 
 from utils import *
@@ -23,10 +23,11 @@ define("syslog", default=False, type=bool)
 
 class WebApplication(tornado.web.Application):
     def __init__(self, **kwargs):
-        kwargs["redis"] = tornadoredis.ConnectionPool(max_connections = 10,
-                                                      wait_for_available = True)
-        kwargs["mysql"] = { 'host':'localhost', 'database':'mysql', 
-                            'user':'root', 'password':'mysql' }
+        kwargs["cfg"] = { "mysql": { 'host':'localhost', 'database':'mysql', 
+                            'user':'root', 'password':'mysql' },
+                          "redis": { 'max_connections': cpu_count() } }
+        kwargs["redis"] = tornadoredis.ConnectionPool(wait_for_available = True,
+            max_connections = kwargs["cfg"]["redis"]["max_connections"])
         handlers = [(r"/", IndexHandler, kwargs), (r"/ls", CmdHandler)]
         tornado.web.Application.__init__(self, handlers)
 

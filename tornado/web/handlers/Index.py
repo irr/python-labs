@@ -38,9 +38,10 @@ class AsyncProcessMixIn(RequestHandler):
 
 class IndexHandler(RequestHandler):
     def initialize(self, **kwargs):
-        self.logger = kwargs.get("logger")
-        self.mysql = kwargs.get("mysql")
+        self.logger = kwargs["logger"]
+        self.mysql = kwargs["cfg"]["mysql"]
         self.redis = tornadoredis.Client(connection_pool=kwargs["redis"])
+        self.cfg = kwargs["cfg"]
         self.template = Template("op -cmd {{ cmd }} -value {{ value }}")
 
     @staticmethod
@@ -72,7 +73,8 @@ class IndexHandler(RequestHandler):
             response = { 'status': 200,
                          'msg': self.template.generate(**data),
                          'redis': info['redis_version'],
-                         'mysql': hosts }
+                         'mysql': hosts,
+                         'cfg': self.cfg }
         except Exception as ex:
             response = { 'status': 500, 'msg': str(ex) }
         finally:
