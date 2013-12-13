@@ -13,7 +13,7 @@ from tornado.options import define, options
 from utils import *
 from handlers import *
 
-import tornadoredis, sys, os, signal, logging, logging.handlers
+import tornadoredis, torndb, sys, os, signal, logging, logging.handlers
 
 define("port", default=8888, type=int)
 define("syslog", default=False, type=bool)
