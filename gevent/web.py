@@ -12,8 +12,11 @@ SYSLOG.setFormatter(logging.Formatter(LOG_FORMAT))
 logging.basicConfig(format=LOG_FORMAT)
 logging.getLogger().setLevel(LOG_LEVEL)
 
+pool = redis.ConnectionPool(host='localhost', port=6379, db=0, max_connections=1)
+
 def redis_exec(response):
-    r = redis.Redis(host='localhost', port=6379, db=0)
+    global pool
+    r = redis.Redis(connection_pool=pool)
     return r.info()
 
 def mysql_exec(response):
