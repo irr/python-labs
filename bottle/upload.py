@@ -29,8 +29,7 @@ def do_upload():
     if data and data.file:
         raw = data.file.read()
         filename = data.filename
-        with open("/tmp/%s" % filename, 'w+') as open_file:
-            open_file.write(raw)
+        data.save("/tmp/%s" % filename, overwrite=True, chunk_size=65536)
         return "<b>Metadata:</b><br/>%s<hr/>You uploaded <b>%s</b> (<b>%d</b> bytes)." \
                 % (meta, filename, len(raw))
     return "You missed a field."

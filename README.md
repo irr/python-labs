@@ -22,7 +22,13 @@ Libraries
 -----------
 
 ```shell
-pip install -v httpie gevent iptools pycrypto redis umysql bottle psutil glances PyInstaller
+pip install -v httpie gevent iptools pycrypto redis umysql tornado tornado-redis torndb MySQL-python psutil glances pyinstaller
+```
+
+```shell
+git clone https://github.com/defnull/bottle.git
+cd bootle
+python setup.py install
 ```
 
 Copyright and License

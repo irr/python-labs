@@ -39,4 +39,8 @@ make html
 
 DEV
 ===
-pip install -v httpie iptools pycrypto redis tornado tornado-redis torndb MySQL-python psutil glances pyinstaller
+pip install -v httpie gevent iptools pycrypto redis umysql tornado tornado-redis torndb MySQL-python psutil glances pyinstaller
+
+git clone https://github.com/defnull/bottle.git
+cd bootle
+python setup.py install
