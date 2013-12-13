@@ -5,21 +5,21 @@ import json
 def do_form():
     meta = { 'id':1, 'name':'test.png' }
     form = """
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Upload Test</title>
-</head>
-<body>
-<form action="/upload" method="post" 
-      enctype="multipart/form-data">
-  <textarea name=meta rows=10 cols=60>%s</textarea><br/>
-  <input type="file" name="data"/>
-  <input type="submit" value="POST data" />
-</form>
-</body>
-</html>
+          <!doctype html>
+          <html lang="en">
+          <head>
+            <meta charset="utf-8">
+            <title>Upload Test</title>
+          </head>
+          <body>
+          <form action="/upload" method="post" 
+                enctype="multipart/form-data">
+            <textarea name=meta rows=10 cols=60>%s</textarea><br/>
+            <input type="file" name="data"/>
+            <input type="submit" value="POST data" />
+          </form>
+          </body>
+          </html>
     """ % (json.dumps(meta),)
     response.content_type = 'text/html; charset=utf-8'
     return form
