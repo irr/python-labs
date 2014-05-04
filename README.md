@@ -22,7 +22,7 @@ Libraries
 -----------
 
 ```shell
-pip install -v httpie gevent iptools pycrypto redis umysql tornado tornado-redis torndb MySQL-python psutil glances pyinstaller
+pip install -v httpie gevent iptools pycrypto redis umysql tornado tornado-redis torndb MySQL-python psutil glances pyinstaller beautifulsoup4
 ```
 
 ```shell
