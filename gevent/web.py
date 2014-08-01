@@ -12,7 +12,7 @@ SYSLOG.setFormatter(logging.Formatter(LOG_FORMAT))
 logging.basicConfig(format=LOG_FORMAT)
 logging.getLogger().setLevel(LOG_LEVEL)
 
-pool = redis.ConnectionPool(host='localhost', port=6379, db=0, max_connections=1)
+pool = redis.ConnectionPool(host='localhost', port=6379, db=0, max_connections=100)
 
 def redis_exec(response):
     global pool
