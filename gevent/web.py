@@ -1,7 +1,7 @@
 from gevent import monkey; monkey.patch_all()
-from bottle import route, run, response, abort
+from bottle import route, run, get, post, response, request, abort
 
-import sys, argparse, logging, logging.handlers, gevent, redis, umysql, json
+import sys, time, argparse, logging, logging.handlers, gevent, redis, umysql, json
 
 LOG_LEVEL = logging.DEBUG
 LOG_FORMAT = '[%(levelname)1.1s %(asctime)s %(module)s:%(lineno)d] %(message)s'
@@ -30,10 +30,19 @@ def mysql_exec(response):
     return res
 
 @route('/')
+@get('/')
+@post('/')
 def application():
     response.content_type = 'application/json; charset=utf-8'
     g1 = gevent.spawn(redis_exec, response)
     g2 = gevent.spawn(mysql_exec, response)
+    t = 0
+    if 't' in request.query:
+        t = request.query['t'] 
+    else:
+        t = request.forms.get('t')
+    if t != None and t.isdigit() and t > 0:
+        time.sleep(int(t))
     gevent.joinall([g1, g2])
     if g1.value == None or g2.value == None:
         abort(503, "Sorry, service unavailable.")
