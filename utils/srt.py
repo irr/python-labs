@@ -20,4 +20,7 @@ def main():
         raise
 
 if __name__ == '__main__':
+    if len(sys.argv) == 1:
+        print "Usage: srt <file>"
+        sys.exit(1)
     main()
