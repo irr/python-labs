@@ -22,13 +22,7 @@ Libraries
 -----------
 
 ```shell
-pip install -v httpie gevent iptools pycrypto redis umysql tornado tornado-redis torndb MySQL-python psutil glances pyinstaller beautifulsoup4
-```
-
-```shell
-git clone https://github.com/defnull/bottle.git
-cd bootle
-python setup.py install
+pip install -v httpie gevent iptools pycrypto redis pymsql uwsgi
 ```
 
 Copyright and License
