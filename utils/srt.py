@@ -12,7 +12,7 @@ def main():
         with codecs.open("%s.bak" % (sys.argv[1],), 'r', encoding='utf8') as source:
             data = source.read()
             data = re.compile(r'<[^>]+>').sub('', data)
-            with codecs.open("%s" % (sys.argv[1],), 'w+', encoding='utf8') as target:
+            with codecs.open(sys.argv[1], 'w+', encoding='utf8') as target:
                 target.write(data)
         os.unlink("%s.bak" % (sys.argv[1],))
         os.system("zenity --info --text='Filename: %s [%s]\nSize: %d'" % 
