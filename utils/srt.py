@@ -15,7 +15,8 @@ def main():
             with codecs.open("%s" % (sys.argv[1],), 'w+', encoding='utf8') as target:
                 target.write(data)
         os.unlink("%s.bak" % (sys.argv[1],))
-        os.system("zenity --info --text='Filename: %s [%s]\nSize: %d'" % (sys.argv[1], charset, os.stat(sys.argv[1]).st_size))
+        os.system("zenity --info --text='Filename: %s [%s]\nSize: %d'" % 
+            (sys.argv[1], charset, os.stat(sys.argv[1]).st_size))
     except:
         print "Unexpected error:", sys.exc_info()[0]
         raise
