@@ -10,19 +10,22 @@ yum install expat-devel gdbm-devel zlib-devel bzip2-devel openssl-devel ncurses-
 ```
 
 ```shell
-wget http://python.org/ftp/python/2.7.6/Python-2.7.6.tgz
-tar xfva Python-2.7.6.tgz
-cd Python-2.7.6
+wget http://python.org/ftp/python/2.7.8/Python-2.7.8.tgz
+tar xfva Python-2.7.8.tgz
+cd Python-2.7.8
 ./configure --enable-shared --prefix=/usr/local
 make -j4
-make altinstall
+sudo make altinstall
+sudo cp ~/python/env/python2.7.conf /etc/ld.so.conf.d/
+sudo ldconfig
 ```
 
 Libraries
 -----------
 
 ```shell
-pip install -v httpie gevent iptools pycrypto redis pymsql uwsgi
+virtualenv --no-site-packages --distribute -p /usr/local/bin/python2.7 dev
+pip install -v httpie gevent uwsgi iptools pycrypto redis pymsql
 ```
 
 Copyright and License
