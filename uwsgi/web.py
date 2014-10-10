@@ -50,4 +50,4 @@ def application(environ, start_response):
         yield "%s\n" % json.dumps({"redis": g1.value["redis_version"], "mysql":g2.value, "t":t})[:1024]
 
 # see: http://uwsgi-docs.readthedocs.org/en/latest/Logging.html
-# uwsgi --gevent-monkey-patch --gevent 4 --http-socket :8888 --enable-threads --wsgi-file web.py
+# uwsgi --gevent-monkey-patch --gevent 4 --http-socket :1972 --enable-threads --wsgi-file web.py
