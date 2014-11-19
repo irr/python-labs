@@ -28,12 +28,6 @@ virtualenv --no-site-packages --distribute -p /usr/local/bin/python2.7 dev
 pip install -v httpie gevent uwsgi iptools pycrypto redis pymysql glances boto
 ```
 
-```shell
-pip install -v yolk
-yolk -V pyinstaller
-pip install -v pyinstaller==2.0
-```
-
 Copyright and License
 ---------------------
 Copyright 2012 Ivan Ribeiro Rocha
