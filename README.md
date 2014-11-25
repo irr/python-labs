@@ -34,7 +34,7 @@ cd distribute-0.6.45
 
 su -c "python3.4 setup.py install"
 su -c "easy_install-3.4 virtualenv"
-virtualenv-3.4 --distribute dev3
+virtualenv-3.4 --distribute -p /usr/local/bin/python3.4 dev3
 ```
 
 Libraries
