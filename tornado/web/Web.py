@@ -63,7 +63,9 @@ def main():
         if logging.getLogger().isEnabledFor(logging.DEBUG):
             logger.debug("autoreload enabled")
             tornado.autoreload.start()
-        http_server.start(0)
+            http_server.start()
+        else:
+            http_server.start(0)
         tornado.ioloop.IOLoop.instance().start()
     except BaseException as ex:
         logger.error("exiting due: [%s]" % str(ex))        

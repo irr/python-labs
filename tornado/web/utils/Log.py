@@ -1,4 +1,4 @@
-import os, logging, thread
+import os, logging, threading
 from logging.handlers import SysLogHandler
 
 class Logger():
@@ -15,7 +15,7 @@ class Logger():
                 if isinstance(handler, logging.StreamHandler):
                     self.logger.removeHandler(handler)
             self.logger.addHandler(SysLogHandler(address='/dev/log'))
-        self.id = hex(thread.get_ident())[2:]
+        self.id = hex(threading._get_ident())[2:]
 
     def fmt(self, msg):
         return "[%s] %s (%d)" % (self.id, msg, os.getpid())

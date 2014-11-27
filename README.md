@@ -42,7 +42,7 @@ Libraries
 
 ```shell
 virtualenv --no-site-packages --distribute -p /usr/local/bin/python2.7 dev
-pip install -v httpie gevent uwsgi iptools pycrypto redis pymysql glances boto
+pip install -v httpie gevent uwsgi iptools pycrypto redis pymysql glances boto tornado tornado-redis torndb MySQL-python
 ```
 
 Copyright and License
