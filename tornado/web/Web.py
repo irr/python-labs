@@ -24,7 +24,7 @@ define("syslog", default=False, type=bool)
 class WebApplication(tornado.web.Application):
     def __init__(self, **kwargs):
         kwargs["cfg"] = { "mysql": { 'host':'localhost', 'database':'mysql', 
-                            'user':'root', 'password':'mysql' },
+                                     'user':'root', 'password':'mysql' },
                           "redis": { 'max_connections': cpu_count() } }
         kwargs["redis"] = tornadoredis.ConnectionPool(wait_for_available = True,
             max_connections = kwargs["cfg"]["redis"]["max_connections"])
