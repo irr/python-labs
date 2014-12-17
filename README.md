@@ -28,8 +28,8 @@ cd Python-3.4.2
 make -j4
 sudo make altinstall
 
-wget --no-check-certificate http://pypi.python.org/packages/source/d/distribute/distribute-0.7.3.tar.gz
-tar xf distribute-0.7.3.tar.gz
+wget --no-check-certificate https://pypi.python.org/packages/source/d/distribute/distribute-0.7.3.zip
+unzip distribute-0.7.3.zip
 cd distribute-0.7.3
 
 su -c "python3.4 setup.py install"
