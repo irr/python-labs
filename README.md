@@ -34,11 +34,15 @@ cd distribute-0.7.3
 
 su -c "python3.4 setup.py install"
 su -c "easy_install-3.4 virtualenv"
-virtualenv-3.4 --distribute -p /usr/local/bin/python3.4 dev3
 ```
 
 Libraries
 -----------
+
+```shell
+virtualenv-3.4 --distribute -p /usr/local/bin/python3.4 dev3
+pip install -v httpie uwsgi iptools pycrypto redis pymysql glances boto cx_Freeze werkzeug
+```
 
 ```shell
 virtualenv --no-site-packages --distribute -p /usr/local/bin/python2.7 dev
