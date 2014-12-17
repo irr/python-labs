@@ -28,9 +28,9 @@ cd Python-3.4.2
 make -j4
 sudo make altinstall
 
-wget --no-check-certificate http://pypi.python.org/packages/source/d/distribute/distribute-0.6.45.tar.gz
-tar xf distribute-0.6.45.tar.gz
-cd distribute-0.6.45
+wget --no-check-certificate http://pypi.python.org/packages/source/d/distribute/distribute-0.7.3.tar.gz
+tar xf distribute-0.7.3.tar.gz
+cd distribute-0.7.3
 
 su -c "python3.4 setup.py install"
 su -c "easy_install-3.4 virtualenv"
