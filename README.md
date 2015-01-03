@@ -10,9 +10,9 @@ yum install expat-devel gdbm-devel zlib-devel bzip2-devel openssl-devel ncurses-
 ```
 
 ```shell
-wget http://python.org/ftp/python/2.7.8/Python-2.7.8.tgz
-tar xfva Python-2.7.8.tgz
-cd Python-2.7.8
+wget http://python.org/ftp/python/2.7.9/Python-2.7.9.tgz
+tar xfva Python-2.7.9.tgz
+cd Python-2.7.9
 ./configure --enable-shared --prefix=/usr/local
 make -j4
 sudo make altinstall
