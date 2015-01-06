@@ -5,8 +5,8 @@ Dependencies
 -----------
 
 ```shell
-yum groupinstall "Development tools"
-yum install expat-devel gdbm-devel zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel xz-devel libevent-devel libffi-devel compat-gdbm-devel zlib-devel tkimg-devel bzip2-devel gsl-devel
+sudo yum groupinstall "Development tools"
+sudo yum install python-devel expat-devel gdbm-devel zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel xz-devel libevent-devel libffi-devel zlib-devel bzip2-devel gsl-devel atlas-devel freetype-devel libpng-devel blas-devel lapack-devel gcc-gfortran dvipng
 ```
 
 ```shell
@@ -42,7 +42,7 @@ Libraries
 ```shell
 virtualenv -p /usr/local/bin/python2.7 dev
 virtualenv-3.4 -p /usr/local/bin/python3.4 dev3
-pip install -v httpie uwsgi iptools pycrypto redis pymysql glances boto cx_Freeze Sphinx werkzeug numpy scipy
+pip install -v httpie uwsgi iptools pycrypto redis pymysql glances boto cx_Freeze Sphinx werkzeug numpy scipy matplotlib
 ```
 
 Copyright and License
