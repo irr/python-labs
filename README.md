@@ -42,7 +42,7 @@ Libraries
 ```shell
 virtualenv -p /usr/local/bin/python2.7 dev
 virtualenv-3.4 -p /usr/local/bin/python3.4 dev3
-pip install -v httpie uwsgi iptools pycrypto redis pymysql glances boto cx_Freeze werkzeug
+pip install -v httpie uwsgi iptools pycrypto redis pymysql glances boto cx_Freeze Sphinx werkzeug numpy scipy
 ```
 
 Copyright and License
