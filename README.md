@@ -6,7 +6,7 @@ Dependencies
 
 ```shell
 yum groupinstall "Development tools"
-yum install expat-devel gdbm-devel zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel xz-devel libevent-devel libffi-devel compat-gdbm-devel zlib-devel tkimg-devel bzip2-devel
+yum install expat-devel gdbm-devel zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel xz-devel libevent-devel libffi-devel compat-gdbm-devel zlib-devel tkimg-devel bzip2-devel gsl-devel
 ```
 
 ```shell
@@ -40,13 +40,9 @@ Libraries
 -----------
 
 ```shell
-virtualenv-3.4 --distribute -p /usr/local/bin/python3.4 dev3
+virtualenv -p /usr/local/bin/python2.7 dev
+virtualenv-3.4 -p /usr/local/bin/python3.4 dev3
 pip install -v httpie uwsgi iptools pycrypto redis pymysql glances boto cx_Freeze werkzeug
-```
-
-```shell
-virtualenv --no-site-packages --distribute -p /usr/local/bin/python2.7 dev
-pip install -v httpie gevent uwsgi iptools pycrypto redis pymysql glances boto tornado tornado-redis torndb MySQL-python
 ```
 
 Copyright and License
