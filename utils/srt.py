@@ -1,11 +1,11 @@
-#!/home/irocha/dev/bin/python
+#!/usr/bin/env python
 
-import codecs, commands, sys, re, os
+import codecs, subprocess, sys, re, os
 
 def main():
     try:
-        (_, output) = commands.getstatusoutput("file -bi \"%s\"" % (sys.argv[1],))
-        _, charset = output.split('charset=')
+        output = subprocess.check_output(["file", "-bi", sys.argv[1]])
+        charset = output.decode('ascii').split('charset=')[1].strip()
         with codecs.open(sys.argv[1], 'r', encoding=charset) as source:
             with codecs.open("%s.bak" % (sys.argv[1],), 'w+', encoding='utf8') as target:
                 target.write(source.read())
@@ -18,11 +18,11 @@ def main():
         os.system("zenity --info --text='Filename: %s\nEncoding: [%s]\nSize: %d'" % 
             (sys.argv[1], charset, os.stat(sys.argv[1]).st_size))
     except:
-        print "Unexpected error:", sys.exc_info()[0]
+        print("Unexpected error:", sys.exc_info()[0])
         raise
 
 if __name__ == '__main__':
     if len(sys.argv) == 1:
-        print "Usage: srt <file>"
+        print("Usage: srt <file>")
         sys.exit(1)
     main()
