@@ -32,7 +32,7 @@ Libraries
 
 ```shell
 virtualenv -p /usr/local/bin/python2.7 dev
-pip install -v httpie uwsgi iptools pycrypto redis pymysql glances boto cx_Freeze pyinstaller gevent Sphinx werkzeug numpy scipy pydot matplotlib
+pip install -v httpie uwsgi iptools pycrypto redis pymysql glances boto cx_Freeze pyinstaller gevent Sphinx werkzeug numpy scipy matplotlib
 ```
 
 Copyright and License
