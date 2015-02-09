@@ -13,11 +13,18 @@ sudo yum install python-devel expat-devel gdbm-devel zlib-devel bzip2-devel open
 wget http://python.org/ftp/python/2.7.9/Python-2.7.9.tgz
 tar xfva Python-2.7.9.tgz
 cd Python-2.7.9
-./configure --enable-shared --prefix=/usr/local
+./configure --prefix=/usr/local --enable-unicode=ucs4 --enable-shared LDFLAGS="-Wl,-rpath /usr/local/lib"
 make -j4
 sudo make altinstall
 sudo cp ~/python/env/python2.7.conf /etc/ld.so.conf.d/
 sudo ldconfig
+
+wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
+python2.7 ez_setup.py
+easy_install-2.7 pip
+pip2.7 install [packagename]
+pip2.7 install --upgrade [packagename]
+pip2.7 uninstall [packagename]
 ```
 
 Libraries
