@@ -14,7 +14,7 @@ pool = redis.ConnectionPool(host='localhost', port=6379, db=0, max_connections=1
 def redis_exec():
     global pool
     r = redis.Redis(connection_pool=pool)
-    return r.info()
+    return (str(gevent.getcurrent()), r.info())
 
 def mysql_exec():
     db = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='mysql', db='mysql')
@@ -25,7 +25,7 @@ def mysql_exec():
         res.append(h[0])
     rs.close()
     db.close()
-    return res
+    return (str(gevent.getcurrent()), res)
 
 def application(environ, start_response):
     status = '200 OK'
@@ -47,7 +47,12 @@ def application(environ, start_response):
         yield "%s\n" % json.dumps({"error": "Sorry, service unavailable."})[:1024]
     else:
         start_response(status, headers)
-        yield "%s\n" % json.dumps({"redis": g1.value["redis_version"], "mysql":g2.value, "t":t})[:1024]
+        c1, rh = g1.value
+        c2, mh = g2.value
+        yield "%s\n" % json.dumps({"redis_ctx": c1, "redis": rh["redis_version"], 
+                                   "mysql_ctx": c2, "mysql": mh, "t":t})[:1024]
 
 # see: http://uwsgi-docs.readthedocs.org/en/latest/Logging.html
-# uwsgi --log-format '%(addr) - %(user) [%(ltime)] "%(method) %(uri) %(proto)" %(status) %(size) "%(referer)"%(uagent)' --gevent-monkey-patch --gevent 4 --http-socket :1972 --enable-threads --wsgi-file web.py
+# sudo apt-get install uwsgi-plugin-python
+# uwsgi_python --log-format '%(addr) - %(user) [%(ltime)] "%(method) %(uri) %(proto)" %(status) %(size) "%(referer)"%(uagent)' --http-socket :1972 --enable-threads --wsgi-file web.py
+# uwsgi_python --thunder-lock --http-socket :1972 --enable-threads --workers 4 --threads 4 --wsgi-file web.py

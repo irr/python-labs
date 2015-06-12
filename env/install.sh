@@ -1,7 +1,8 @@
 #!/bin/bash
 #mkdir -p ~/.python-eggs
 #chmod g-wx,o-wx ~/.python-eggs
-mkdir -p /opt/python/github
+sudo mkdir -p /opt/python/github
+sudo chown -R irocha: /opt/python
 cd /opt/python/github
 git clone git@github.com:irr/high_performance_python.git
 cd high_performance_python
