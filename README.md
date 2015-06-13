@@ -6,7 +6,7 @@ Dependencies
 
 ```shell
 sudo yum groupinstall "Development tools"
-sudo yum install python-devel expat-devel gdbm-devel zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel xz-devel compat-libevent14-devel libffi-devel zlib-devel bzip2-devel gsl-devel atlas-devel freetype-devel libpng-devel blas-devel lapack-devel gcc-gfortran dvipng graphviz-devel
+sudo yum install python-devel expat-devel gdbm-devel zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel xz-devel libffi-devel zlib-devel bzip2-devel gsl-devel atlas-devel freetype-devel libpng-devel blas-devel lapack-devel gcc-gfortran dvipng graphviz-devel
 ```
 
 ```shell
@@ -40,7 +40,6 @@ cd /opt/python
 wget http://initd.org/psycopg/tarballs/PSYCOPG-2-6/psycopg2-2.6.tar.gz
 tar xfva psycopg2-2.6.tar.gz
 cd psycopg2-2.6
-python setup.py build_ext --pg-config /usr/pgsql-9.4/bin/pg_config build
 python setup.py build_ext --pg-config /usr/pgsql-9.4/bin/pg_config install
 ```
 
