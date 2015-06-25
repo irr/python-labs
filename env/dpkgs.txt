@@ -3,3 +3,8 @@ sudo apt-get install libatlas-dev libfreetype6-dev libpng12-dev libblas-dev libl
 pip install -v redis pycrypto iptools nltk gevent httpie glances numpy matplotlib scipy scikit-learn
 
 ln -s /opt/python/pyinstaller-develop/pyinstaller.py /home/irocha/dev/bin/pyinstaller
+
+pip freeze > requirements.txt
+pip install -r requirements.txt
+
+pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
