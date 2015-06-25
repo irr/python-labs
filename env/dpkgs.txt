@@ -1,32 +1,5 @@
-glances
-httpie
-python-crypto
-python-doc
-python-flask
-python-flask-doc
-python-gevent
-python-gevent-doc
-python-ipy
-python-matplotlib
-python-matplotlib-doc
-python-nltk
-python-numpy
-python-numpy-doc
-python-oauthlib
-python-pil
-python-pip
-python-psycopg2
-python-psycopg2-doc
-python-redis
-python-requests
-python-requests-oauthlib
-python-requests-oauthlib-doc
-python-scipy
-python-setuptools
-python-sklearn
-python-sklearn-doc
-python-sphinx
-ptyhon-virtualenv
-python-werkzeug
-python-werkzeug-doc
-uwsgi-plugin-python
+sudo apt-get install libatlas-dev libfreetype6-dev libpng12-dev libblas-dev liblapack-dev gfortran glances httpie python-crypto python-doc python-flask python-flask-doc python-gevent python-gevent-doc python-ipy python-matplotlib python-matplotlib-doc python-nltk python-numpy python-numpy-doc python-oauthlib python-pil python-pip python-psycopg2 python-psycopg2-doc python-redis python-requests python-requests-oauthlib python-requests-oauthlib-doc python-scipy python-setuptools python-sklearn python-sklearn-doc python-sphinx python-virtualenv python-werkzeug python-werkzeug-doc uwsgi-plugin-python
+
+pip install -v redis pycrypto iptools nltk gevent httpie glances numpy matplotlib scipy scikit-learn
+
+ln -s /opt/python/pyinstaller-develop/pyinstaller.py /home/irocha/dev/bin/pyinstaller
