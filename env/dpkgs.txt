@@ -2,7 +2,8 @@ sudo apt-get install libatlas-dev libfreetype6-dev libpng12-dev libblas-dev libl
 
 pip install -v redis pycrypto iptools nltk gevent httpie glances numpy matplotlib scipy scikit-learn
 
-ln -s /opt/python/pyinstaller-develop/pyinstaller.py /home/irocha/dev/bin/pyinstaller
+ln -s /opt/python/pyinstaller-develop/pyinstaller.py /opt/python/github/pyinstaller
+ln -s /opt/python/github/pyinstaller/pyinstaller.py /opt/python/github/pyinstaller
 
 pip freeze > requirements.txt
 pip install -r requirements.txt
