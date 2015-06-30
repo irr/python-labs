@@ -1,7 +1,13 @@
 import tornado.web
 import tornado.ioloop
 import tornado.httpclient
-import json
+import tornado.options
+
+import logging, json
+
+from utils import Logger
+
+VERSION="1.0.0"
 
 class MyHandler(tornado.web.RequestHandler):
     @tornado.web.asynchronous
@@ -20,6 +26,12 @@ application = tornado.web.Application([
     (r"/", MyHandler),
 ])
 
+global logger
+global http_server    
+
 if __name__ == "__main__":
+    tornado.options.parse_command_line()
+    logger = Logger('info', False)    
+    logger.info('starting webasync v%s' % VERSION)    
     application.listen(8888)
     tornado.ioloop.IOLoop.instance().start()
