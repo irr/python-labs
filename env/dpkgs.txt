@@ -8,3 +8,6 @@ pip install -r requirements.txt
 pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
 
 Eclipse: http://pydev.org/updates
+
+pip install -v git+http://github.com/gevent/gevent.git#egg=gevent
+pip install -v cython git+http://github.com/gevent/gevent.git#egg=gevent

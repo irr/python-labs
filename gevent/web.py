@@ -35,22 +35,22 @@ def application(environ, start_response):
     headers = [('Content-Type', 'application/json; charset=utf-8')]
 
     d = parse_qs(environ['QUERY_STRING'])
-    t = escape(d.get('t', ['0'])[0])
+    t = int(escape(d.get('t', ['0'])[0]))
+
+    if t > 0:
+        gevent.sleep(int(t))
 
     g1 = gevent.spawn(redis_exec)
     g2 = gevent.spawn(mysql_exec)
-
-    if t != None and t.isdigit() and t > 0:
-        gevent.sleep(int(t))
 
     gevent.joinall([g1, g2])
 
     if g1.value == None or g2.value == None:
         start_response("503", headers)
-        yield "%s\n" % json.dumps({"error": "Sorry, service unavailable."})[:1024]
+        yield ("%s\n" % json.dumps({"error": "Sorry, service unavailable."})[:1024]).encode('utf-8')
     else:
         start_response(status, headers)
-        yield "%s\n" % json.dumps({"redis": g1.value["redis_version"], "mysql":g2.value, "t":t})[:1024]
+        yield ("%s\n" % json.dumps({"redis": g1.value["redis_version"], "mysql":g2.value, "t":t})[:1024]).encode('utf-8')
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
