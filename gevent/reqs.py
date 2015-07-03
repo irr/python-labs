@@ -1,9 +1,10 @@
 import gevent
 from gevent import monkey
-
 monkey.patch_all()
 
-import requests
+import requests, requests.packages
+
+requests.packages.urllib3.disable_warnings()
 import urllib2
 
 def worker(url, use_urllib2=False):
@@ -24,6 +25,7 @@ def by_urllib2():
 
 if __name__=='__main__':
     from timeit import Timer
+    print 'starting http requests...'
     t = Timer(stmt="by_requests()", setup="from __main__ import by_requests")  
     print 'by requests: %s seconds'%t.timeit(number=3)
     t = Timer(stmt="by_urllib2()", setup="from __main__ import by_urllib2")  
