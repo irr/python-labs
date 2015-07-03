@@ -12,7 +12,8 @@ Libraries
 -----------
 
 ```shell
-pip install -v redis pycrypto iptools nltk gevent httpie glances boto3 geopy python-geohash pyzmq cassandra-driver blist numpy matplotlib scipy scikit-learn
+pip install -v redis pycrypto iptools gevent httpie glances geopy python-geohash pymysql python-memcached kazoo sphinx 
+pip install -v nltk boto3 cassandra-driver blist numpy matplotlib scipy scikit-learn
 ```
 
 Copyright and License
