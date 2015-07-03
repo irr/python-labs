@@ -5,14 +5,14 @@ Dependencies
 -----------
 
 ```shell
-sudo apt-get install libatlas-dev libfreetype6-dev libpng12-dev libblas-dev liblapack-dev gfortran glances httpie python-crypto python-doc python-flask python-flask-doc python-gevent python-gevent-doc python-ipy python-matplotlib python-matplotlib-doc python-nltk python-numpy python-numpy-doc python-oauthlib python-pil python-pip python-psycopg2 python-psycopg2-doc python-redis python-requests python-requests-oauthlib python-requests-oauthlib-doc python-scipy python-setuptools python-sklearn python-sklearn-doc python-sphinx python-virtualenv python-werkzeug python-werkzeug-doc uwsgi-plugin-python
+sudo apt-get install libatlas-dev libfreetype6-dev libpng12-dev libblas-dev liblapack-dev gfortran glances httpie python-crypto python-doc python-flask python-flask-doc python-gevent python-gevent-doc python-ipy python-matplotlib python-matplotlib-doc python-nltk python-numpy python-numpy-doc python-oauthlib python-pil python-pip python-psycopg2 python-psycopg2-doc python-redis python-requests python-requests-oauthlib python-requests-oauthlib-doc python-scipy python-setuptools python-sklearn python-sklearn-doc python-sphinx python-virtualenv python-werkzeug python-werkzeug-doc uwsgi-plugin-python libev4 libev-dev
 ```
 
 Libraries
 -----------
 
 ```shell
-pip install -v redis pycrypto iptools nltk gevent httpie glances boto3 geopy python-geohash pyzmq numpy matplotlib scipy scikit-learn
+pip install -v redis pycrypto iptools nltk gevent httpie glances boto3 geopy python-geohash pyzmq cassandra-driver blist numpy matplotlib scipy scikit-learn
 ```
 
 Copyright and License
