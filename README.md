@@ -12,7 +12,7 @@ Libraries
 -----------
 
 ```shell
-pip install -v redis pycrypto iptools paramiko gevent httpie glances geopy python-geohash pymysql python-memcached kazoo sphinx 
+pip install -v redis pycrypto iptools paramiko gevent httpie glances geopy python-geohash pymysql python-memcached kazoo pyzmq sphinx 
 pip install -v nltk boto3 cassandra-driver blist numpy matplotlib scipy scikit-learn
 ```
 
