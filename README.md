@@ -5,15 +5,15 @@ Dependencies
 -----------
 
 ```shell
-sudo apt-get install libatlas-dev libfreetype6-dev libpng12-dev \
+sudo apt-get install libatlas-dev libfreetype6-dev libpng12-dev libev-dev \
                      libblas-dev liblapack-dev gfortran glances httpie \
-                     python-crypto python-doc python-flask python-flask-doc \
+                     python-crypto python-doc python-setuptools \
                      python-gevent python-gevent-doc python-ipy \
                      python-matplotlib python-matplotlib-doc python-nltk \
-                     python-numpy python-numpy-doc python-oauthlib python-pil \
-                     python-pip python-redis python-requests python-scipy python-setuptools \
-                     python-sklearn python-sklearn-doc python-sphinx python-virtualenv \
-                     python-werkzeug python-werkzeug-doc uwsgi-plugin-python libev4 libev-dev
+                     python-numpy python-numpy-doc python-pil python-scipy \
+                     python-pip python-redis python-requests python-virtualenv \
+                     python-sklearn python-sklearn-doc python-sphinx \
+                     python-werkzeug python-werkzeug-doc uwsgi-plugin-python
 ```
 
 Libraries
