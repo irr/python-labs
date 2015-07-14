@@ -9,7 +9,7 @@ def server():
     server_socket.bind("tcp://127.0.0.1:5000")
 
     for request in range(1,10):
-        server_socket.send("Hello")
+        server_socket.send_string("Hello")
         print('Switched to Server for %s' % request)
         # Implicit context switch occurs here
         server_socket.recv()
@@ -23,7 +23,7 @@ def client():
         client_socket.recv()
         print('Switched to Client for %s' % request)
         # Implicit context switch occurs here
-        client_socket.send("World")
+        client_socket.send_string("World")
 
 publisher = gevent.spawn(server)
 client    = gevent.spawn(client)
