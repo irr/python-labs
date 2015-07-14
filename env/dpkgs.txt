@@ -16,3 +16,11 @@ pip install -v git+http://github.com/gevent/gevent.git#egg=gevent
 acitoolkit
 https://github.com/datacenter/acitoolkit/issues/73
 git checkout d2982ba8d9b76c0383be72776ec8a12ade49ee5e
+
+http://stackoverflow.com/questions/3112171/python-assert-with-and-without-parenthesis
+
+            if self.headers:
+                assert (len(self.headers) == len(self.data[0])), \
+                       'Headers and Data have different lenghts - {0} and {1} respectively' \
+                       .format(len(self.headers), len(self.data[0]))
+
