@@ -22,7 +22,7 @@ pip install -v nltk boto3 cassandra-driver blist numpy matplotlib scipy scikit-l
 
 # Python 3
 pip install -v cython git+http://github.com/gevent/gevent.git#egg=gevent
-pip install -v redis pymysql pycrypto iptools httpie glances boto3 geopy python-geohash 
+pip install -v redis pymysql pycrypto iptools httpie glances boto3 geopy python-geohash paramiko pyzmq sphinx
 pip install -v nltk numpy matplotlib scipy scikit-learn
 ```
 
