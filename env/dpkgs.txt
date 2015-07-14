@@ -1,8 +1,6 @@
-sudo apt-get install libatlas-dev libfreetype6-dev libpng12-dev libblas-dev liblapack-dev gfortran glances httpie python3-doc python-ipy python-pip python-psycopg2 python-psycopg2-doc python-virtualenv python-gevent python-gevent-doc
+sudo apt-get install libatlas-dev libfreetype6-dev libpng12-dev libblas-dev liblapack-dev gfortran glances httpie python-crypto python-doc python-flask python-flask-doc python-gevent python-gevent-doc python-ipy python-matplotlib python-matplotlib-doc python-nltk python-numpy python-numpy-doc python-oauthlib python-pil python-pip python-psycopg2 python-psycopg2-doc python-redis python-requests python-requests-oauthlib python-requests-oauthlib-doc python-scipy python-setuptools python-sklearn python-sklearn-doc python-sphinx python-virtualenv python-werkzeug python-werkzeug-doc uwsgi-plugin-python
 
-pip install -v cython git+http://github.com/gevent/gevent.git#egg=gevent
-pip install -v redis pymysql pycrypto iptools httpie glances boto3 geopy python-geohash 
-pip install -v nltk numpy matplotlib scipy scikit-learn
+pip install -v redis pycrypto iptools nltk gevent httpie glances boto3 geopy python-geohash pyzmq numpy matplotlib scipy scikit-learn
 
 pip freeze > requirements.txt
 pip install -r requirements.txt
@@ -10,17 +8,3 @@ pip install -r requirements.txt
 pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
 
 Eclipse: http://pydev.org/updates
-
-pip install -v git+http://github.com/gevent/gevent.git#egg=gevent
-
-acitoolkit
-https://github.com/datacenter/acitoolkit/issues/73
-git checkout d2982ba8d9b76c0383be72776ec8a12ade49ee5e
-
-http://stackoverflow.com/questions/3112171/python-assert-with-and-without-parenthesis
-
-            if self.headers:
-                assert (len(self.headers) == len(self.data[0])), \
-                       'Headers and Data have different lenghts - {0} and {1} respectively' \
-                       .format(len(self.headers), len(self.data[0]))
-
