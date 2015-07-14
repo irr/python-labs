@@ -28,4 +28,10 @@ ln -s /opt/python/github/awesome-python
 ln -s /opt/python/github/gevent-tutorial
 ln -s /opt/python/github/high_performance_python
 ln -s /opt/python/github/python-guide
+cd /opt/python
+git clone https://github.com/datacenter/acitoolkit.git
+cd acitoolkit
+git checkout d2982ba8d9b76c0383be72776ec8a12ade49ee5e
+patch -p1 < ~/remote/cisco/acitoolkit/aciTable.patch
 cd
+
