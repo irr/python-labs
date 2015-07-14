@@ -6,8 +6,8 @@ Dependencies
 
 ```shell
 sudo apt-get install libatlas-dev libfreetype6-dev libpng12-dev \
-                     libblas-dev liblapack-dev gfortran \
-                     glances httpie python3-dev python3-doc \
+                     libblas-dev liblapack-dev gfortran glances \
+                     httpie python3-dev python3-doc python3-pip \
                      python-ipy python-pip python-virtualenv \
                      python-gevent python-gevent-doc
 ```
