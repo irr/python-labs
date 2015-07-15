@@ -23,16 +23,15 @@ git clone git@github.com:irr/awesome-python.git
 cd awesome-python
 git remote add upstream https://github.com/vinta/awesome-python.git
 git fetch upstream && git merge upstream/master && git push
-cd ..
-git clone git@github.com:irr/pyinstaller.git
-cd pyinstaller
-git remote add upstream https://github.com/pyinstaller/pyinstaller.git
-git fetch upstream && git merge upstream/master && git push
-cd ..
 cd ~/gitf
 ln -s /opt/python/github/awesome-python
 ln -s /opt/python/github/gevent-tutorial
 ln -s /opt/python/github/high_performance_python
 ln -s /opt/python/github/python-guide
-ln -s /opt/python/github/pyinstaller
+cd /opt/python
+git clone https://github.com/datacenter/acitoolkit.git
+cd acitoolkit
+git checkout d2982ba8d9b76c0383be72776ec8a12ade49ee5e
+patch -p1 < ~/remote/cisco/acitoolkit/aciTable.patch
 cd
+
