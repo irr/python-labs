@@ -5,24 +5,21 @@ Dependencies
 -----------
 
 ```shell
-sudo apt-get install libatlas-dev libfreetype6-dev libpng12-dev libev-dev \
-                     libblas-dev liblapack-dev gfortran glances httpie \
-                     python-crypto python-doc python-setuptools \
-                     python-gevent python-gevent-doc python-ipy \
-                     python-matplotlib python-matplotlib-doc python-nltk \
-                     python-numpy python-numpy-doc python-pil python-scipy \
-                     python-pip python-redis python-requests python-virtualenv \
-                     python-sklearn python-sklearn-doc python-sphinx \
-                     python-werkzeug python-werkzeug-doc uwsgi-plugin-python
+sudo apt-get install libatlas-dev libfreetype6-dev libpng12-dev \
+                     libblas-dev liblapack-dev gfortran glances \
+                     httpie python3-dev python3-doc python3-pip \
+                     python-ipy python-pip python-virtualenv \
+                     python-gevent python-gevent-doc
 ```
 
 Libraries
 -----------
 
 ```shell
-pip install -v redis pycrypto iptools paramiko gevent httpie glances \
-               geopy python-geohash pymysql python-memcached pyzmq sphinx 
-pip install -v nltk boto3 cassandra-driver blist numpy matplotlib scipy scikit-learn
+pip install -v cython git+http://github.com/gevent/gevent.git#egg=gevent
+pip install -v redis pymysql pycrypto iptools httpie glances 
+pip install -v boto3 geopy python-geohash paramiko pyzmq sphinx
+pip install -v nltk numpy matplotlib scipy scikit-learn
 ```
 
 Copyright and License
