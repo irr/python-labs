@@ -5,11 +5,22 @@ Dependencies
 -----------
 
 ```shell
+# Python 3
 sudo apt-get install libatlas-dev libfreetype6-dev libpng12-dev \
                      libblas-dev liblapack-dev gfortran glances \
                      httpie python3-dev python3-doc python3-pip \
                      python-ipy python-pip python-virtualenv \
                      python-gevent python-gevent-doc
+# Python 2
+sudo apt-get install libatlas-dev libfreetype6-dev libpng12-dev \
+                     libblas-dev liblapack-dev gfortran glances \
+                     httpie python-crypto python-doc python-ipy \
+                     python-setuptools python-gevent python-gevent-doc \
+                     python-matplotlib python-matplotlib-doc python-nltk \
+                     python-numpy python-numpy-doc python-pil python-pip \
+                     python-redis python-requests python-scipy \
+                     python-sklearn python-sklearn-doc python-sphinx \
+                     python-virtualenv 
 ```
 
 Libraries
@@ -17,6 +28,7 @@ Libraries
 
 ```shell
 pip install -v cython git+http://github.com/gevent/gevent.git#egg=gevent
+pip install -v gevent # Python 2
 pip install -v redis pymysql pycrypto iptools httpie glances 
 pip install -v boto3 geopy python-geohash paramiko pyzmq sphinx
 pip install -v nltk numpy matplotlib scipy scikit-learn
