@@ -2,10 +2,14 @@
 Basic template for gevent web server
 """
 
+import gevent
+from gevent import monkey
+monkey.patch_all()
+
 from gevent.pywsgi import WSGIServer
 from cgi import parse_qs, escape
 
-import argparse, gevent, pymysql, redis, json, logging.handlers
+import argparse, pymysql, redis, json, logging.handlers
 
 LOG_LEVEL = logging.DEBUG
 LOG_FORMAT = '[%(levelname)1.1s %(asctime)s %(module)s:%(lineno)d] %(message)s'
