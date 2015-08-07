@@ -27,10 +27,10 @@ Libraries
 -----------
 
 ```shell
-pip install -v cython git+http://github.com/gevent/gevent.git#egg=gevent
-pip install -v gevent # Python 2
+pip install -v cython git+http://github.com/gevent/gevent.git#egg=gevent Flask
+pip install -v gevent Flask # Python 2
 pip install -v redis pymysql pycrypto iptools netaddr httpie glances pylint
-pip install -v boto3 geopy python-geohash paramiko pyzmq sphinx
+pip install -v boto3 geopy python-geohash paramiko sphinx
 pip install -v nltk numpy matplotlib scipy pandas scikit-learn
 ```
 
