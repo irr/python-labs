@@ -10,7 +10,7 @@ sudo apt-get install libatlas-dev libfreetype6-dev libpng12-dev \
                      libblas-dev liblapack-dev gfortran glances \
                      httpie python3-dev python3-doc python3-pip \
                      python-ipy python-pip python-virtualenv \
-                     python-gevent python-gevent-doc
+                     python-gevent python-gevent-doc graphviz
 # Python 2
 sudo apt-get install libatlas-dev libfreetype6-dev libpng12-dev \
                      libblas-dev liblapack-dev gfortran glances \
@@ -20,7 +20,7 @@ sudo apt-get install libatlas-dev libfreetype6-dev libpng12-dev \
                      python-numpy python-numpy-doc python-pil python-pip \
                      python-redis python-requests python-scipy \
                      python-sklearn python-sklearn-doc python-sphinx \
-                     python-virtualenv
+                     python-virtualenv graphviz
 ```
 
 Libraries
@@ -28,7 +28,7 @@ Libraries
 
 ```shell
 pip install -v cython git+http://github.com/gevent/gevent.git#egg=gevent Flask
-pip install -v redis pymysql pycrypto iptools netaddr httpie glances pylint
+pip install -v redis pymysql pycrypto iptools netaddr httpie glances pylint pycallgraph
 pip install -v boto3 geopy python-geohash paramiko sphinx sphinx_rtd_theme
 pip install -v nltk numpy matplotlib scipy pandas scikit-learn
 pip install -v gevent Flask # Python 2
