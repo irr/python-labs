@@ -1,5 +1,5 @@
 import asyncio, json
-from aiohttp import web
+from aiohttp import web, request
 
 BIND = '127.0.0.1'
 PORT = 8080
@@ -10,7 +10,6 @@ CONTROLS = ['index']
 
 CONTENT_TYPE = 'application/json'
 
-
 def auth(request):
     version = request.match_info.get('version', VERSIONS[0])
     control = request.match_info.get('control', None)
@@ -18,16 +17,28 @@ def auth(request):
     if not (version in VERSIONS and control in CONTROLS):
         return {'status': web.HTTPBadRequest()}
 
-    return {'status': web.HTTPOk, 
-            'version': version, 
-            'control': control, 
+    return {'status': web.HTTPOk,
+            'version': version,
+            'control': control,
             'request': request}
 
 
+@asyncio.coroutine
+def fetch_page(url):
+    response = yield from request('GET', url)
+    assert response.status == 200
+    return (yield from response.read())
+
+
+@asyncio.coroutine
 def index(bundle):
-    body = "GET: %s/%s" % (bundle['version'], bundle['control'])
-    return web.Response(content_type=CONTENT_TYPE, 
-                        body=json.dumps(body).encode(ENCODING))            
+    page = 'http://python.org'
+    content = yield from fetch_page(page)
+    body = { 'get': "GET: %s/%s" % (bundle['version'], bundle['control']),
+             'size': len(content),
+             'page':  page }
+    return web.Response(content_type=CONTENT_TYPE,
+                        body=json.dumps(body).encode(ENCODING))
 
 
 @asyncio.coroutine
