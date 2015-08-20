@@ -20,7 +20,7 @@ sudo apt-get install libatlas-dev libfreetype6-dev libpng12-dev \
                      python-numpy python-numpy-doc python-pil python-pip \
                      python-redis python-requests python-scipy \
                      python-sklearn python-sklearn-doc python-sphinx \
-                     python-virtualenv 
+                     python-virtualenv
 ```
 
 Libraries
@@ -28,10 +28,10 @@ Libraries
 
 ```shell
 pip install -v cython git+http://github.com/gevent/gevent.git#egg=gevent Flask
-pip install -v gevent Flask # Python 2
 pip install -v redis pymysql pycrypto iptools netaddr httpie glances pylint
-pip install -v boto3 geopy python-geohash paramiko sphinx
+pip install -v boto3 geopy python-geohash paramiko sphinx sphinx_rtd_theme
 pip install -v nltk numpy matplotlib scipy pandas scikit-learn
+pip install -v gevent Flask # Python 2
 ```
 
 Copyright and License
