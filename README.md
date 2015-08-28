@@ -17,6 +17,7 @@ sudo apt-get install libatlas-dev libfreetype6-dev libpng12-dev \
                      python-virtualenv graphviz eclipse
 # http://pydev.org/updates
 # http://download.eclipse.org/egit/updates
+# https://marketplace.eclipse.org/content/eclipse-moonrise-ui-theme
 
 # Python 3
 sudo apt-get install libatlas-dev libfreetype6-dev libpng12-dev \
