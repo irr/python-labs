@@ -33,7 +33,7 @@ Libraries
 ```shell
 pip install -v cython git+http://github.com/gevent/gevent.git#egg=gevent Flask aiohttp
 pip install -v redis pymysql pycrypto iptools netaddr httpie glances pylint pycallgraph
-pip install -v boto3 geopy python-geohash paramiko sphinx sphinx_rtd_theme
+pip install -v boto3 geopy python-geohash paramiko pyyaml sphinx sphinx_rtd_theme
 pip install -v nltk numpy matplotlib scipy pandas scikit-learn
 pip install -v gevent Flask # Python 2
 ```
