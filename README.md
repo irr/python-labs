@@ -17,7 +17,6 @@ sudo apt-get install libatlas-dev libfreetype6-dev libpng12-dev \
                      python-virtualenv graphviz eclipse
 # http://pydev.org/updates
 # http://download.eclipse.org/egit/updates
-# https://marketplace.eclipse.org/content/eclipse-moonrise-ui-theme
 
 # Python 3
 sudo apt-get install libatlas-dev libfreetype6-dev libpng12-dev \
@@ -34,8 +33,14 @@ Libraries
 pip install -v cython git+http://github.com/gevent/gevent.git#egg=gevent Flask aiohttp
 pip install -v redis pymysql pycrypto iptools netaddr httpie glances pylint pycallgraph
 pip install -v boto3 geopy python-geohash paramiko pyyaml sphinx sphinx_rtd_theme
-pip install -v nltk numpy matplotlib scipy pandas scikit-learn
+pip install -v nltk textblob numpy matplotlib scipy pandas scikit-learn
 pip install -v gevent Flask # Python 2
+```
+
+```python
+import nltk, textblob.download_corpora
+nltk.download()
+textblob.download_corpora.main()
 ```
 
 Copyright and License
