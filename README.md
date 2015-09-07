@@ -66,6 +66,8 @@ make -j4
 make install
 cd /usr/sbin
 sudo ln -s /opt/python/nginx/sbin/nginx
+cd ~/gitf
+ln -s /opt/python/nginx_tcp_proxy_module
 ```
 
 Copyright and License
