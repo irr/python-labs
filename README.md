@@ -48,6 +48,26 @@ nltk.download()
 textblob.download_corpora.main()
 ```
 
+```shell
+cd /opt/python
+git clone git@github.com:irr/nginx_tcp_proxy_module.git
+cd nginx_tcp_proxy_module
+git remote add upstream https://github.com/yaoweibin/nginx_tcp_proxy_module.git
+git fetch upstream && git merge upstream/master && git push
+cd ..
+wget http://nginx.org/download/nginx-1.8.0.tar.gz
+tar xfva nginx-1.8.0.tar.gz
+cd nginx-1.8.0
+patch -p1 < /opt/python/nginx_tcp_proxy_module/tcp-1.8.0.patch
+./configure --with-http_ssl_module \
+            --prefix=/opt/python/nginx \
+            --add-module=/opt/python/nginx_tcp_proxy_module
+make -j4
+make install
+cd /usr/sbin
+sudo ln -s /opt/python/nginx/sbin/nginx
+```
+
 Copyright and License
 ---------------------
 Copyright 2012 Ivan Ribeiro Rocha
