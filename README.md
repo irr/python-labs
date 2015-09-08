@@ -34,9 +34,16 @@ Libraries
 -----------
 
 ```shell
-pip install -v cython git+http://github.com/gevent/gevent.git#egg=gevent Flask aiohttp # Python 3.x
-pip install -v Flask gevent pylint # Python 2.x
-pip install -v redis pymysql pyzmq pycrypto iptools netaddr beautifulsoup4
+# Python 3.x
+pip install -v aiohttp aioredis aiomysql geopy python-geohash pyyaml
+pip install -v pymysql pycrypto iptools netaddr beautifulsoup4
+pip install -v httpie glances sphinx sphinx_rtd_theme
+pip install -v nltk textblob
+pip install -v cython git+http://github.com/gevent/gevent.git#egg=gevent
+
+# Python 2.x
+pip install -v Flask gevent
+pip install -v redis pymysql pycrypto iptools netaddr beautifulsoup4
 pip install -v httpie glances pycallgraph
 pip install -v boto3 geopy python-geohash paramiko pyyaml sphinx sphinx_rtd_theme
 pip install -v nltk textblob numpy matplotlib scipy pandas scikit-learn
