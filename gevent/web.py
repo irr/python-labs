@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 Basic template for gevent web server
 """
@@ -9,7 +10,7 @@ monkey.patch_all()
 from gevent.pywsgi import WSGIServer
 from cgi import parse_qs, escape
 
-import argparse, pymysql, redis, json, logging.handlers
+import argparse, pymysql, redis, json, logging.handlers, signal, sys
 
 LOG_LEVEL = logging.DEBUG
 LOG_FORMAT = '[%(levelname)1.1s %(asctime)s %(module)s:%(lineno)d] %(message)s'
@@ -23,12 +24,14 @@ logging.getLogger().setLevel(LOG_LEVEL)
 POOL = redis.ConnectionPool(host='localhost', port=6379,
                             db=0, max_connections=100)
 
+
 def redis_exec():
     """
     retrieve redis info array
     """
     connection = redis.Redis(connection_pool=POOL)
     return connection.info()
+
 
 def mysql_exec():
     """
@@ -44,6 +47,7 @@ def mysql_exec():
     result.close()
     dbase.close()
     return res
+
 
 def application(environ, start_response):
     """
@@ -72,6 +76,13 @@ def application(environ, start_response):
         yield ("%s\n" % json.dumps({"redis": gev1.value["redis_version"],
                                     "mysql":gev2.value, "t":time})[:1024]).encode('utf-8')
 
+
+def graceful_shutdown(gexc=None):
+    if gexc:
+        logging.getLogger().info('%s Exiting and closing connections...' % (gexc.__class__,))
+    sys.exit(0)
+
+
 if __name__ == "__main__":
     PARSER = argparse.ArgumentParser()
     PARSER.add_argument('-s', '--syslog',
@@ -87,8 +98,21 @@ if __name__ == "__main__":
                         type=int,
                         default=8000,
                         help="listen port (default: 8000)")
+    PARSER.add_argument('-i', '--instances',
+                        dest="instances",
+                        type=int,
+                        default=0,
+                        help="instances number (supervisor only, default:<cpu-count>)")
+
     ARGS = PARSER.parse_args()
     if ARGS.syslog:
         logging.getLogger().addHandler(SYSLOG)
     logging.info('Listening on %s:%d...' % (ARGS.bind, ARGS.port))
-    WSGIServer((ARGS.bind, ARGS.port), application).serve_forever()
+
+    gevent.signal(signal.SIGTERM, graceful_shutdown)
+
+    try:
+        WSGIServer((ARGS.bind, ARGS.port), application).serve_forever()
+    except (KeyboardInterrupt, SystemExit) as err:
+        graceful_shutdown(err)
+
