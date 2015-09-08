@@ -35,7 +35,7 @@ Libraries
 
 ```shell
 pip install -v Flask
-pip install -v gevent redis pymysql pyzmq pycrypto iptools netaddr
+pip install -v gevent redis pymysql pyzmq pycrypto iptools netaddr beautifulsoup4
 pip install -v httpie glances pylint pycallgraph
 pip install -v boto3 geopy python-geohash paramiko pyyaml sphinx sphinx_rtd_theme
 pip install -v nltk textblob numpy matplotlib scipy pandas scikit-learn
