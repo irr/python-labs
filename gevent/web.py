@@ -7,10 +7,13 @@ import gevent
 from gevent import monkey
 monkey.patch_all()
 
+from gevent.coros import BoundedSemaphore
 from gevent.pywsgi import WSGIServer
 from cgi import parse_qs, escape
 
 import argparse, pymysql, redis, json, logging.handlers, signal, sys
+
+SEM = BoundedSemaphore(1)
 
 LOG_LEVEL = logging.DEBUG
 LOG_FORMAT = '[%(levelname)1.1s %(asctime)s %(module)s:%(lineno)d] %(message)s'
@@ -59,8 +62,9 @@ def application(environ, start_response):
     data = parse_qs(environ['QUERY_STRING'])
     time = int(escape(data.get('t', ['0'])[0]))
 
-    if time > 0:
-        gevent.sleep(int(time))
+    with SEM:
+        if time > 0:
+            gevent.sleep(int(time))
 
     gev1 = gevent.spawn(redis_exec)
     gev2 = gevent.spawn(mysql_exec)
