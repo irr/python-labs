@@ -1,19 +1,19 @@
 # http localhost:8080/https%3A%2F%2Fnews.ycombinator.com
 
-import json
-import signal
-import sys
-
 import asyncio
+import functools
+import json
+import os
+import signal
+
 from aiohttp import request, web
 from bs4 import BeautifulSoup
 from textblob import TextBlob
 
 
-def term_handler(signum, frame):
-    if signum:
-        print('Signal handler called with signal', signum)
-    sys.exit(0)
+def term_handler(signame):
+    print("got signal %s: exit" % signame)
+    loop.stop()
 
 
 def strip(content):
@@ -54,12 +54,12 @@ def init(loop):
     return srv
 
 
-signal.signal(signal.SIGTERM, term_handler)
-
 loop = asyncio.get_event_loop()
+for signame in ('SIGINT', 'SIGTERM'):
+    loop.add_signal_handler(getattr(signal, signame),
+                            functools.partial(term_handler, signame))
+
 loop.run_until_complete(init(loop))
 
-try:
-    loop.run_forever()
-except KeyboardInterrupt:
-    term_handler(None, None)
+print("pid %s: send SIGINT or SIGTERM to exit." % os.getpid())
+loop.run_forever()
