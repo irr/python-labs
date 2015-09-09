@@ -36,9 +36,8 @@ Libraries
 ```shell
 # Python 3.x
 pip install -v aiohttp aioredis aiomysql geopy python-geohash pyyaml
-pip install -v pymysql pycrypto iptools netaddr beautifulsoup4
+pip install -v pycrypto iptools beautifulsoup4 nltk textblob
 pip install -v httpie glances sphinx sphinx_rtd_theme
-pip install -v nltk textblob
 pip install -v cython git+http://github.com/gevent/gevent.git#egg=gevent
 
 # Python 2.x
