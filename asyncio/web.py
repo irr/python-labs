@@ -38,9 +38,12 @@ def handle(request):
     content = yield from fetch_page(page)
     text = strip(content)
     blob = TextBlob(text.decode('utf-8'))
+    words = list({ w for w in blob.words if len(w) > 4})
+    words.sort()
     body = { 'sentences': len(blob.sentences),
-             'words': len(blob.words),
-             'language': blob.detect_language() }
+             'words': len(words),
+             'language': blob.detect_language(),
+             'blob': words }
     return web.Response(body=json.dumps(body).encode('utf-8'),
                         content_type="application/json; charset=utf-8")
 
