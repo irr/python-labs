@@ -10,6 +10,8 @@ from aiohttp import request, web
 from bs4 import BeautifulSoup
 from textblob import TextBlob
 
+HOST = '127.0.0.1'
+PORT = 8080
 
 def term_handler(signame):
     print("got signal %s: exit" % signame)
@@ -49,9 +51,8 @@ def init(loop):
     app.router.add_route('GET', '/{page}', handle)
 
     srv = yield from loop.create_server(app.make_handler(),
-                                        '127.0.0.1', 8080)
-    print("Server started at http://127.0.0.1:8080")
-    return srv
+                                        HOST, PORT)
+    print("Server started at http://%s:%d" % (HOST, PORT))
 
 
 loop = asyncio.get_event_loop()
