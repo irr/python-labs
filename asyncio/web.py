@@ -1,11 +1,13 @@
 # http localhost:8080/https%3A%2F%2Fnews.ycombinator.com
 
+import json
 import signal
 import sys
 
 import asyncio
 from aiohttp import request, web
 from bs4 import BeautifulSoup
+from textblob import TextBlob
 
 
 def term_handler(signum, frame):
@@ -18,10 +20,7 @@ def strip(content):
     soup = BeautifulSoup(content, "html.parser")
     [s.extract() for s in soup(['style', 'script'])]
     text = soup.getText()
-    lines = (line.strip() for line in text.splitlines())
-    chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
-    text = '\n'.join(chunk for chunk in chunks if chunk)
-    return str.encode(text)
+    return str.encode(text, encoding='utf-8')
 
 
 @asyncio.coroutine
@@ -35,7 +34,13 @@ def fetch_page(url):
 def handle(request):
     page = request.match_info.get('page')
     content = yield from fetch_page(page)
-    return web.Response(body=strip(content), content_type="text/plain; charset=utf-8")
+    text = strip(content)
+    blob = TextBlob(text.decode('utf-8'))
+    body = { 'sentences': len(blob.sentences),
+             'words': len(blob.words),
+             'language': blob.detect_language() }
+    return web.Response(body=json.dumps(body).encode('utf-8'),
+                        content_type="application/json; charset=utf-8")
 
 
 @asyncio.coroutine
