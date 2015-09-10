@@ -9,7 +9,7 @@ Dependencies
 sudo apt-get install libatlas-dev libfreetype6-dev libpng12-dev \
                      libsqlite3-dev libmysqlclient-dev libzmq3-dev \
                      libblas-dev liblapack-dev gfortran glances \
-                     geoip-bin geoip-database libgeoip-dev \
+                     geoip-bin geoip-database libgeoip-dev libev-dev \
                      httpie python-crypto python-doc python-ipy \
                      python-setuptools python-gevent python-gevent-doc \
                      python-matplotlib python-matplotlib-doc python-nltk \
@@ -23,7 +23,7 @@ sudo apt-get install libatlas-dev libfreetype6-dev libpng12-dev \
 # Python 3
 sudo apt-get install libatlas-dev libfreetype6-dev libpng12-dev \
                      libsqlite3-dev libmysqlclient-dev libzmq3-dev \
-                     geoip-bin geoip-database libgeoip-dev \
+                     geoip-bin geoip-database libgeoip-dev libev-dev \
                      libblas-dev liblapack-dev gfortran glances \
                      httpie python3-dev python3-doc python3-pip \
                      python-ipy python-pip python-virtualenv \
