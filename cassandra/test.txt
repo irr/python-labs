@@ -1,0 +1,7 @@
+./nodetool status
+
+CREATE KEYSPACE IF NOT EXISTS irr WITH REPLICATION = { 'class' : 'NetworkTopologyStrategy', 'datacenter1' : 1 };
+USE irr;
+CREATE TABLE series (id text, ts timestamp, value decimal, PRIMARY KEY (id,ts),) WITH CLUSTERING ORDER BY (ts DESC);
+DESCRIBE TABLES;
+DESCRIBE series;
