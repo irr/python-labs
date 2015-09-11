@@ -36,9 +36,7 @@ sudo ldconfig
 wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
 sudo /usr/local/bin/python2.7 ez_setup.py
 sudo /usr/local/bin/easy_install-2.7 pip
-sudo /usr/local/bin/pip2.7 install [packagename]
-sudo /usr/local/bin/pip2.7 install --upgrade [packagename]
-sudo /usr/local/bin/pip2.7 uninstall [packagename]
+sudo /usr/local/bin/pip2.7 install virtualenv
 ```
 
 ```shell
