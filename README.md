@@ -20,7 +20,9 @@ sudo yum install python-devel expat-devel gdbm-devel zlib-devel \
 wget https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tar.xz
 tar xfva Python-2.7.10.tar.xz
 cd Python-2.7.10
-./configure --prefix=/usr/local --enable-unicode=ucs4 --enable-shared LDFLAGS="-Wl,-rpath /usr/local/lib"
+./configure --prefix=/usr/local \
+            --enable-unicode=ucs4 \
+            --enable-shared LDFLAGS="-Wl,-rpath /usr/local/lib"
 make -j4
 sudo make altinstall
 sudo cp ~/python/env/python2.7.conf /etc/ld.so.conf.d/
