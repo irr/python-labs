@@ -34,11 +34,11 @@ sudo cp ~/python/env/python2.7.conf /etc/ld.so.conf.d/
 sudo ldconfig
 
 wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
-python2.7 ez_setup.py
-easy_install-2.7 pip
-pip2.7 install [packagename]
-pip2.7 install --upgrade [packagename]
-pip2.7 uninstall [packagename]
+sudo /usr/local/bin/python2.7 ez_setup.py
+sudo /usr/local/bin/easy_install-2.7 pip
+sudo /usr/local/bin/pip2.7 install [packagename]
+sudo /usr/local/bin/pip2.7 install --upgrade [packagename]
+sudo /usr/local/bin/pip2.7 uninstall [packagename]
 ```
 
 ```shell
