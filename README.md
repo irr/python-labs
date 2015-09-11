@@ -9,9 +9,9 @@ Dependencies
 sudo yum groupinstall "Development tools"
 sudo yum install python-devel expat-devel gdbm-devel zlib-devel \
                  bzip2-devel openssl-devel ncurses-devel sqlite-devel \
-                 readline-devel tk-devel xz-devel libffi-devel \
+                 readline-devel xz-devel libev-devel libffi-devel \
                  zlib-devel bzip2-devel gsl-devel atlas-devel \
-                 freetype-devel libpng-devel blas-devel \
+                 freetype-devel libpng-devel blas-devel tk-devel \
                  lapack-devel gcc-gfortran dvipng graphviz-devel
 
 # http://pydev.org/updates
