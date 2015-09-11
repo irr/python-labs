@@ -5,7 +5,37 @@ Dependencies
 -----------
 
 ```shell
-# Python 2
+# Python 2.x/3.x
+sudo yum groupinstall "Development tools"
+sudo yum install python-devel expat-devel gdbm-devel zlib-devel \
+                 bzip2-devel openssl-devel ncurses-devel sqlite-devel \
+                 readline-devel tk-devel xz-devel libffi-devel \
+                 zlib-devel bzip2-devel gsl-devel atlas-devel \
+                 freetype-devel libpng-devel blas-devel \
+                 lapack-devel gcc-gfortran dvipng graphviz-devel
+
+# http://pydev.org/updates
+# http://download.eclipse.org/egit/updates
+
+wget https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tar.xz
+tar xfva Python-2.7.10.tar.xz
+cd Python-2.7.10
+./configure --prefix=/usr/local --enable-unicode=ucs4 --enable-shared LDFLAGS="-Wl,-rpath /usr/local/lib"
+make -j4
+sudo make altinstall
+sudo cp ~/python/env/python2.7.conf /etc/ld.so.conf.d/
+sudo ldconfig
+
+wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
+python2.7 ez_setup.py
+easy_install-2.7 pip
+pip2.7 install [packagename]
+pip2.7 install --upgrade [packagename]
+pip2.7 uninstall [packagename]
+```
+
+```shell
+# Python 2.x
 sudo apt-get install libatlas-dev libfreetype6-dev libpng12-dev \
                      libsqlite3-dev libmysqlclient-dev libzmq3-dev \
                      libblas-dev liblapack-dev gfortran glances \
@@ -17,10 +47,8 @@ sudo apt-get install libatlas-dev libfreetype6-dev libpng12-dev \
                      python-redis python-requests python-scipy \
                      python-sklearn python-sklearn-doc python-sphinx \
                      python-virtualenv graphviz eclipse
-# http://pydev.org/updates
-# http://download.eclipse.org/egit/updates
 
-# Python 3
+# Python 3.x
 sudo apt-get install libatlas-dev libfreetype6-dev libpng12-dev \
                      libsqlite3-dev libmysqlclient-dev libzmq3-dev \
                      geoip-bin geoip-database libgeoip-dev libev-dev \
