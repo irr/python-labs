@@ -1,0 +1,17 @@
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
+
+import ssl
+context = ssl._create_unverified_context()
+urllib.urlopen("https://no-valid-cert", context=context)
+
+import ssl
+import socket
+ 
+s_ = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s = ssl.wrap_socket(s_, 
+                    ca_certs='/usr/local/lib/python2.7/dist-packages/requests/cacert.pem', 
+                    cert_reqs=ssl.CERT_REQUIRED)
+ 
+s.connect(('www.google.com', 443))
+ 
