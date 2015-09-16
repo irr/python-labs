@@ -7,7 +7,7 @@ import gevent
 from gevent import monkey
 monkey.patch_all()
 
-from gevent.coros import BoundedSemaphore
+from gevent.lock import BoundedSemaphore
 from gevent.pywsgi import WSGIServer
 from cgi import parse_qs, escape
 
