@@ -37,6 +37,8 @@ wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
 sudo /usr/local/bin/python2.7 ez_setup.py
 sudo /usr/local/bin/easy_install-2.7 pip
 sudo /usr/local/bin/pip2.7 install virtualenv
+
+virtualenv -p /usr/local/bin/python2.7 dev
 ```
 
 ```shell
