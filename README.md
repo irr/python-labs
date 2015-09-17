@@ -20,11 +20,11 @@ sudo yum install python-devel expat-devel gdbm-devel zlib-devel \
 sudo mkdir -p /opt/python
 sudo chown irocha: /opt/python
 cd /opt/python
-wget -c https://docs.python.org/2/archives/python-2.7.10-docs-html.tar.bz2
-tar xfva python-2.7.10-docs-html.tar.bz2
-wget -c https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tar.xz
-tar xfva Python-2.7.10.tar.xz
-cd Python-2.7.10
+wget -c https://docs.python.org/2/archives/python-2.7.6-docs-html.tar.bz2
+tar xfva python-2.7.6-docs-html.tar.bz2
+wget -c https://www.python.org/ftp/python/2.7.6/Python-2.7.6.tar.xz
+tar xfva Python-2.7.6.tar.xz
+cd Python-2.7.6
 ./configure --prefix=/usr/local \
             --enable-unicode=ucs4 \
             --enable-shared LDFLAGS="-Wl,-rpath /usr/local/lib"
