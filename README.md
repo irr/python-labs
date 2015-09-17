@@ -82,14 +82,6 @@ pip install -v cassandra-driver lz4
 pip install -v httpie glances pycallgraph
 pip install -v boto3 geopy python-geohash paramiko pyyaml sphinx sphinx_rtd_theme
 pip install -v nltk textblob numpy matplotlib scipy pandas scikit-learn
-
-# Python 2.6
-pip install -v gevent argparse
-pip install -v redis PyMySQL pycrypto iptools netaddr beautifulsoup4 Flask
-pip install -v cassandra-driver lz4
-pip install -v httpie glances pycallgraph
-pip install -v boto3 python-geohash paramiko pyyaml sphinx sphinx_rtd_theme
-pip install -v nltk textblob numpy matplotlib scipy pandas scikit-learn
 ```
 
 ```python
