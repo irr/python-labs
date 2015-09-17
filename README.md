@@ -41,7 +41,7 @@ sudo /usr/local/bin/pip2.7 install virtualenv
 
 virtualenv -p /usr/local/bin/python2.7 dev
 
-wget -c https://docs.python.org/3/archives/python-3.4.3-docs-html.tar.bz2
+wget -c https://docs.python.org/3.4/archives/python-3.4.3-docs-html.tar.bz2
 tar xfva python-3.4.3-docs-html.tar.bz2
 wget http://python.org/ftp/python/3.4.3/Python-3.4.3.tar.xz
 tar xfva Python-3.4.3.tar.xz
