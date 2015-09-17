@@ -88,11 +88,12 @@ Libraries
 -----------
 
 ```shell
-# Python 3.x
+# Python 3.3
 pip install -v aiohttp aioredis aiomysql geopy python-geohash pyyaml
 pip install -v pycrypto iptools beautifulsoup4 nltk textblob
 pip install -v httpie glances sphinx sphinx_rtd_theme
 pip install -v cython git+http://github.com/gevent/gevent.git#egg=gevent
+pip install -v redis pymysql cassandra-driver lz4
 
 # Python 2.7
 pip install -v Flask gevent
