@@ -1,3 +1,4 @@
+
 python-labs
 -----------
 
@@ -39,6 +40,24 @@ sudo /usr/local/bin/easy_install-2.7 pip
 sudo /usr/local/bin/pip2.7 install virtualenv
 
 virtualenv -p /usr/local/bin/python2.7 dev
+
+wget -c https://docs.python.org/3/archives/python-3.5.0-docs-html.tar.bz2
+tar xfva python-3.5.0-docs-html.tar.bz2
+wget http://python.org/ftp/python/3.5.0/Python-3.5.0.tar.xz
+tar xfva Python-3.5.0.tar.xz
+cd Python-3.5.0
+./configure --prefix=/usr/local \
+            --enable-unicode=ucs4 \
+            --enable-shared LDFLAGS="-Wl,-rpath /usr/local/lib"
+make -j4
+sudo make altinstall
+
+wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
+sudo /usr/local/bin/python3.5 ez_setup.py
+sudo /usr/local/bin/easy_install-3.5 pip
+sudo /usr/local/bin/pip3.5 install virtualenv
+
+virtualenv-3.4 -p /usr/local/bin/python3.5 dev3
 ```
 
 ```shell
