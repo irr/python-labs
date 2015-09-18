@@ -14,7 +14,6 @@ logging.getLogger().addHandler(SYSLOG)
 
 while not time.sleep(1):
     chrome = { 'proc': None, 'zombie': False }
-    chromes = []
 
     for proc in psutil.process_iter():
         try:
@@ -23,7 +22,6 @@ while not time.sleep(1):
                     chrome['zombie'] = True
                 if proc.ppid() == 1:
                     chrome['proc'] = proc
-                chromes.append(proc)
         except psutil.NoSuchProcess:
             pass
 
@@ -31,7 +29,4 @@ while not time.sleep(1):
     if chrome['zombie']:
         logging.getLogger().warn("killing zombie process: [%s]" % (chrome,))
         chrome['proc'].kill()
-    elif len(chromes) == 1:
-        logging.getLogger().warn("killing sleeping process: [%s]" % (chromes[0],))
-        chromes[0].kill()
 
