@@ -89,7 +89,8 @@ def myroute(name=None):
         abort(503)
     else:
         return {"redis": gev1.value["redis_version"],
-                "mysql":gev2.value}
+                "mysql":gev2.value,
+                "name":name}
 
 
 if __name__ == "__main__":
