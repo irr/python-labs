@@ -96,7 +96,7 @@ pip install -v cython git+http://github.com/gevent/gevent.git#egg=gevent
 pip install -v redis pymysql cassandra-driver lz4
 
 # Python 2.7
-pip install -v Flask gevent
+pip install -v Flask gevent websocket-client
 pip install -v redis pymysql pycrypto iptools netaddr beautifulsoup4
 pip install -v cassandra-driver lz4
 pip install -v httpie glances pycallgraph
