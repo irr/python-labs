@@ -104,6 +104,11 @@ pip install -v boto3 geopy python-geohash paramiko pyyaml sphinx sphinx_rtd_them
 pip install -v nltk textblob numpy matplotlib scipy pandas scikit-learn
 ```
 
+```Universal
+sudo apt-get install python-gevent python-websocket python-crypto python-netaddr python-paramiko python-yaml python-flask
+sudo yum install python-gevent python-websocket-client python-crypto python-netaddr python-paramiko python-yaml python-flask
+```
+
 ```python
 import nltk, textblob.download_corpora
 nltk.download()
