@@ -105,8 +105,8 @@ pip install -v nltk textblob numpy matplotlib scipy pandas scikit-learn
 ```
 
 ```Universal
-sudo apt-get install python-gevent python-websocket python-crypto python-netaddr python-paramiko python-yaml python-flask python-solr
-sudo yum install python-gevent python-websocket-client python-crypto python-netaddr python-paramiko python-yaml python-flask
+sudo apt-get install python-gevent python-websocket python-crypto python-netaddr python-paramiko python-yaml python-flask python-requests
+sudo yum install python-gevent python-websocket-client python-crypto python-netaddr python-paramiko python-yaml python-flask python-requests
 ```
 
 ```python
