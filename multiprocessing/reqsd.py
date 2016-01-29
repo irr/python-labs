@@ -62,7 +62,7 @@ class Stats(threading.Thread):
 
 
 def sigterm_handler(signo, _):
-    print "Ctrl+C (%d) captured..." % (signo,)
+    print "Ctrl+C %(sig)d captured..." % {'sig': signo}
     sys.exit(0)
 
 if __name__ == "__main__":
