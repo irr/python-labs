@@ -37,7 +37,6 @@ class CircularCounter():
             for _ in xrange(delta):
                 self.counters.appendleft(0)
             self.counters[0] += 1
-            self.stats()
 
 
 class Runner(threading.Thread):
@@ -49,6 +48,17 @@ class Runner(threading.Thread):
         while True:
             time.sleep(random.randint(1,5))
             self.cc.touch(int(time.time()))
+
+
+class Stats(threading.Thread):
+    def __init__(self, cc):
+        threading.Thread.__init__(self)
+        self.cc = cc
+
+    def run(self):
+        while True:
+            time.sleep(1)
+            self.cc.stats()
 
 
 def sigterm_handler(signo, _):
@@ -63,6 +73,8 @@ if __name__ == "__main__":
     c = CircularCounter()
 
     l = [Runner(c) for x in range(100)]
+    l.append(Stats(c))
+
     for r in l:
         r.setDaemon(True)
         r.start()
