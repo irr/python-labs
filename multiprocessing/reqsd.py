@@ -17,26 +17,36 @@ class CircularCounter():
         self.reqs = 0.0
         self.reqm = 0.0
         self.reqh = 0.0
-        self.last = int(time.time())
+        self.last = CircularCounter._epoch()
+
+    @staticmethod
+    def _epoch():
+        return int(time.time())
 
     def stats(self):
-        ts = int(time.time())
-        now = datetime.datetime.fromtimestamp(ts).strftime("%Y-%m-%d %H:%M:%S")
+        epoch = CircularCounter._epoch()
+        now = datetime.datetime.fromtimestamp(epoch).strftime("%Y-%m-%d %H:%M:%S")
         with self.lock:
-            print "%s: (%d, %d, %.8f, %.8f) " % (now, ts, self.reqs, self.reqm, self.reqh)
+            self.add(epoch, True)
+            print "%s: (%d, %d, %.8f, %.8f) " % (now, epoch, self.reqs, self.reqm, self.reqh)
 
-    def touch(self, t):
+    def add(self, epoch = None, ignore = False):
+        if epoch is None:
+            epoch = CircularCounter._epoch()
+        elif epoch < self.last:
+            raise ValueError("invalid epoch {0} (must be >= {1})".format(epoch, self.last))
         with self.lock:
             self.reqs = self.counters[0]
             self.reqm = sum(list(self.counters)[0:60]) / 60.0
             self.reqh = sum(self.counters) / 3600.0
-            delta = t - self.last
-            self.last = t
+            delta = epoch - self.last
+            self.last = epoch
             if delta >= self.n:
                 delta = self.n
             for _ in xrange(delta):
                 self.counters.appendleft(0)
-            self.counters[0] += 1
+            if not ignore:
+                self.counters[0] += 1
 
 
 class Runner(threading.Thread):
@@ -47,7 +57,7 @@ class Runner(threading.Thread):
     def run(self):
         while True:
             time.sleep(random.randint(1,5))
-            self.cc.touch(int(time.time()))
+            self.cc.add()
 
 
 class Stats(threading.Thread):
