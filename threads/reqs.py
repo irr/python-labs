@@ -11,26 +11,34 @@ from array import *
 class CircularCounter(threading.Thread):
     def __init__(self):
         threading.Thread.__init__(self)
-        self.lock = threading.Lock()
+        self.lock = threading.RLock()
         self.n = 60
         self.idx = 0
         self.counters = array('i', [0 for _ in range(self.n)])
+        self.reqs = 0.0
+        self.reqm = 0.0
 
     def touch(self):
         with self.lock:
             self.counters[self.idx] += 1
 
+    def stats(self):
+        ts = int(time.time())
+        now = datetime.datetime.fromtimestamp(ts).strftime("%Y-%m-%d %H:%M:%S")
+        with self.lock:
+            data = (int(time.time()), self.idx, self.reqs, self.reqm)
+            print "%s: %s" % (now, data)
+
     def run(self):
         while True:
             time.sleep(1)
-            now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             with self.lock:
-                print "%s => (%02d) req/s = %d" % (now, self.idx, self.counters[self.idx])
+                self.reqs = self.counters[self.idx]
                 self.idx = (self.idx + 1) % self.n
                 if self.idx == 0:
-                    s = sum(self.counters)
-                    print "\t%s => (%d) req/m = %f" % (now, s, s / float(self.n))
+                    self.reqm = sum(self.counters) / float(self.n)
                 self.counters[self.idx] = 0
+                self.stats()
 
 
 class Runner(threading.Thread):
