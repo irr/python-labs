@@ -32,6 +32,8 @@ class CircularCounter():
             self.reqh = sum(self.counters) / 3600.0
             delta = t - self.last
             self.last = t
+            if delta >= self.n:
+                delta = self.n
             for _ in xrange(delta):
                 self.counters.appendleft(0)
             self.counters[0] += 1
