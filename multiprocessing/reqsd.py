@@ -9,7 +9,7 @@ import time
 
 class CircularCounter():
     def __init__(self):
-        self.lock = threading.RLock()
+        self.lock = threading.Lock()
         self.n = 3600
         self.counters = collections.deque(maxlen=self.n)
         for _ in xrange(self.n):
