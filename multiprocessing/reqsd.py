@@ -16,14 +16,14 @@ class CircularCounter():
             self.counters.append(0)
         self.reqs = 0.0
         self.reqm = 0.0
+        self.reqh = 0.0
         self.last = int(time.time())
 
     def stats(self):
         ts = int(time.time())
         now = datetime.datetime.fromtimestamp(ts).strftime("%Y-%m-%d %H:%M:%S")
         with self.lock:
-            data = (ts, self.reqs, self.reqm, self.reqh)
-            print "%s: %s" % (now, data)
+            print "%s: (%d, %d, %.8f, %.8f) " % (now, ts, self.reqs, self.reqm, self.reqh)
 
     def touch(self, t):
         with self.lock:
