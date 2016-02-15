@@ -89,10 +89,11 @@ Libraries
 
 ```shell
 # Python 3.3
+pip install -v yolk3k gevent==1.1rc3 websocket-client requests pyinstaller
+
 pip install -v aiohttp aioredis aiomysql geopy python-geohash pyyaml
 pip install -v pycrypto iptools beautifulsoup4 nltk textblob
 pip install -v httpie glances sphinx sphinx_rtd_theme
-pip install -v cython git+http://github.com/gevent/gevent.git#egg=gevent
 pip install -v redis pymysql cassandra-driver lz4
 
 # Python 2.7
