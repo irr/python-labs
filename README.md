@@ -97,7 +97,7 @@ pip install -v httpie glances sphinx sphinx_rtd_theme
 pip install -v redis pymysql cassandra-driver lz4
 
 # Python 2.7
-pip install -v Flask gevent websocket-client pysolr
+pip install -v Flask gevent websocket-client pysolr requests_oauthlib PyYAML
 pip install -v redis pymysql pycrypto iptools netaddr beautifulsoup4
 pip install -v cassandra-driver lz4
 pip install -v httpie glances pycallgraph
@@ -106,7 +106,7 @@ pip install -v nltk textblob numpy matplotlib scipy pandas scikit-learn
 ```
 
 ```Universal
-sudo apt-get install python-gevent python-websocket python-crypto python-netaddr python-paramiko python-yaml python-flask python-requests
+sudo apt-get install python-gevent python-websocket python-crypto python-netaddr python-paramiko python-yaml python-flask python-requests python-requests-oauthlib
 sudo yum install python-gevent python-websocket-client python-crypto python-netaddr python-paramiko python-yaml python-flask python-requests
 ```
 
