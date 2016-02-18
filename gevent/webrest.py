@@ -1,5 +1,9 @@
 """
 http POST "http://localhost:8000/test/check?n=10&t=ivan%20rocha" Content-Type:application/json name=irr timeout=10
+
+echo -n '{"name": "irr", "timeout": "10"}' > /tmp/post.json
+ab -p /tmp/post.json -T application/json -n 1 -c 1 http://localhost:8000/test/check
+
 """
 
 import gevent

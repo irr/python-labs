@@ -1,5 +1,8 @@
 from flask import Flask
 from gevent.wsgi import WSGIServer
+from gevent import monkey
+
+monkey.patch_all()
 
 app = Flask(__name__)
 
