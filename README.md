@@ -71,8 +71,10 @@ sudo apt-get install libatlas-dev libfreetype6-dev libpng12-dev \
                      python-matplotlib python-matplotlib-doc python-nltk \
                      python-numpy python-numpy-doc python-pil python-pip \
                      python-redis python-requests python-scipy \
-                     python-sklearn python-sklearn-doc python-sphinx \
-                     python-virtualenv graphviz eclipse
+                     python-sklearn python-sklearn-doc python-sphinx \h \
+                     python-sphinx-rtd-theme python-singledispatch \
+                     python-aioeventlet python-twisted \
+                     python-tornado python-virtualenv graphviz
 
 # Python 3.x
 sudo apt-get install libatlas-dev libfreetype6-dev libpng12-dev \
@@ -98,10 +100,11 @@ pip install -v redis pymysql cassandra-driver lz4
 
 # Python 2.7
 pip install -v Flask gevent websocket-client pysolr requests_oauthlib PyYAML
-pip install -v redis pymysql pycrypto iptools netaddr beautifulsoup4
-pip install -v cassandra-driver lz4
+pip install -v redis pycrypto iptools netaddr beautifulsoup4 tornado
+pip install -v cassandra-driver lz4 pymysql
 pip install -v httpie glances pycallgraph
 pip install -v boto3 geopy python-geohash paramiko pyyaml sphinx sphinx_rtd_theme
+pip install -v tornado backports_abc singledispatch
 pip install -v nltk textblob numpy matplotlib scipy pandas scikit-learn
 ```
 
