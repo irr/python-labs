@@ -100,11 +100,10 @@ pip install -v redis pymysql cassandra-driver lz4
 
 # Python 2.7
 pip install -v Flask gevent websocket-client pysolr requests_oauthlib PyYAML
-pip install -v redis pycrypto iptools netaddr beautifulsoup4 tornado
+pip install -v redis pycrypto iptools netaddr beautifulsoup4
 pip install -v cassandra-driver lz4 pymysql
 pip install -v httpie glances pycallgraph
 pip install -v boto3 geopy python-geohash paramiko pyyaml sphinx sphinx_rtd_theme
-pip install -v tornado backports_abc singledispatch
 pip install -v nltk textblob numpy matplotlib scipy pandas scikit-learn
 ```
 
