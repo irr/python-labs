@@ -71,7 +71,7 @@ sudo apt-get install libatlas-dev libfreetype6-dev libpng12-dev \
                      python-matplotlib python-matplotlib-doc python-nltk \
                      python-numpy python-numpy-doc python-pil python-pip \
                      python-redis python-requests python-scipy \
-                     python-sklearn python-sklearn-doc python-sphinx \h \
+                     python-sklearn python-sklearn-doc python-sphinx \
                      python-sphinx-rtd-theme python-singledispatch \
                      python-aioeventlet python-twisted \
                      python-tornado python-virtualenv graphviz
