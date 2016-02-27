@@ -65,14 +65,13 @@ def application(environ, start_response):
         ck['session'] = str(uuid.uuid4())
         ck['session']['domain'] = '' # localhost
         ck['session']['path'] = '/'
-        expires = datetime.datetime.utcnow() + datetime.timedelta(days=30)
+        expires = datetime.datetime.utcnow() + datetime.timedelta(minutes=1)
         ck['session']['expires'] = expires.strftime("%a, %d %b %Y %H:%M:%S GMT")
         logging.getLogger().info('cookie generated: [{0}]={1}'.format(json.dumps(ck), ck['session'].value))
+        headers.append(('Set-Cookie', ck['session'].OutputString()))
     else:
         ck = SimpleCookie(environ['HTTP_COOKIE'])
         logging.getLogger().info('cookie received: [{0}]={1}'.format(json.dumps(ck), ck['session'].value))
-
-    headers.append(('Set-Cookie', ck.values()[0].OutputString()))
 
     data = parse_qs(environ['QUERY_STRING'])
     time = int(escape(data.get('t', ['0'])[0]))
