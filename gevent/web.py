@@ -10,8 +10,9 @@ monkey.patch_all()
 from gevent.lock import BoundedSemaphore
 from gevent.pywsgi import WSGIServer
 from cgi import parse_qs, escape
+from Cookie import SimpleCookie
 
-import argparse, pymysql, redis, json, logging.handlers, signal, sys
+import argparse, pymysql, redis, json, logging.handlers, signal, sys, uuid, datetime
 
 SEM = BoundedSemaphore(1)
 
@@ -58,6 +59,20 @@ def application(environ, start_response):
     """
     status = '200 OK'
     headers = [('Content-Type', 'application/json; charset=utf-8')]
+
+    if 'HTTP_COOKIE' not in environ:
+        ck = SimpleCookie()
+        ck['session'] = str(uuid.uuid4())
+        ck['session']['domain'] = '' # localhost
+        ck['session']['path'] = '/'
+        expires = datetime.datetime.utcnow() + datetime.timedelta(days=30)
+        ck['session']['expires'] = expires.strftime("%a, %d %b %Y %H:%M:%S GMT")
+        logging.getLogger().info('cookie generated: [{0}]={1}'.format(json.dumps(ck), ck['session'].value))
+    else:
+        ck = SimpleCookie(environ['HTTP_COOKIE'])
+        logging.getLogger().info('cookie received: [{0}]={1}'.format(json.dumps(ck), ck['session'].value))
+
+    headers.append(('Set-Cookie', ck.values()[0].OutputString()))
 
     data = parse_qs(environ['QUERY_STRING'])
     time = int(escape(data.get('t', ['0'])[0]))
