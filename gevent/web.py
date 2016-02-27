@@ -67,6 +67,7 @@ def application(environ, start_response):
         ck['session']['path'] = '/'
         expires = datetime.datetime.utcnow() + datetime.timedelta(minutes=1)
         ck['session']['expires'] = expires.strftime("%a, %d %b %Y %H:%M:%S GMT")
+        ck['session']['httponly'] = True
         logging.getLogger().info('cookie generated: [{0}]={1}'.format(json.dumps(ck), ck['session'].value))
         headers.append(('Set-Cookie', ck['session'].OutputString()))
     else:
