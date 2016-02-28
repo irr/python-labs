@@ -1,4 +1,4 @@
 #!/usr/bin/env python
-from app import app
+from app import microweb
 
-app.run(debug=True)
+microweb.run(debug=True)

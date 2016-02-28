@@ -1,7 +1,7 @@
-from app import app
+from app import microweb
 
 
-@app.route('/')
-@app.route('/index')
+@microweb.route('/')
+@microweb.route('/index')
 def index():
     return "Hello, World!"
