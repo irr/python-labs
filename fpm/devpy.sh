@@ -1,4 +1,12 @@
 #!/bin/bash
+
+# ls -alF /opt/python/pypy
+# total 16
+# drwxrwxr-x 4 irocha irocha 4096 Feb 29 13:54 ./
+# drwxr-xr-x 6 irocha irocha 4096 Feb 29 13:53 ../
+# drwxrwxr-x 6 irocha irocha 4096 Feb 29 13:54 devpy/
+# drwxr-xr-x 7 irocha irocha 4096 Nov 18 09:45 pypy-4.0.1-linux64/
+
 VERSION=0.1
 NAME=pydev
 DEB=${NAME}_${VERSION}_amd64.deb
