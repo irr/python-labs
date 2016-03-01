@@ -5,7 +5,7 @@ FROM centos
 
 MAINTAINER Ivan Ribeiro Rocha <ivan.ribeiro@gmail.com>
 
-ENV PYDEV_VERSION 2.7
+ENV PYENV_VERSION 2.7
 
 RUN mkdir -p /opt/python/cpython
 
