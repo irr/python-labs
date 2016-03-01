@@ -23,6 +23,12 @@ DIST=pypy
 #DIST=cpython
 DEPENDS=""
 
+if [[ "${DIST}" == "pypy" && "${PACKAGE}" == *"rpm"* ]]
+    then
+        echo "Incompatible! pypy && rpm. Only Ubuntu (deb) is supported!"
+        exit 1
+fi
+
 if [[ "${DIST}" == "cpython" ]]
     then
         DEPENDS="-d libpython2.7"
