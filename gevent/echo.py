@@ -15,7 +15,7 @@ def echo(socket, address):
         if line.strip().lower() == 'quit':
             print ("client quit")
             break
-        fileobj.write(str(line))
+        fileobj.write(line)
         fileobj.flush()
         print ("echoed %r" % line)
 
