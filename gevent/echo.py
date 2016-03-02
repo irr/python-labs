@@ -4,9 +4,9 @@ from gevent.server import StreamServer
 # this handler will be run for each incoming connection in a dedicated greenlet
 def echo(socket, address):
     print ('New connection from %s:%s' % address)
-    socket.sendall('Welcome to the echo server! Type quit to exit.\r\n')
+    socket.sendall('Welcome to the echo server! Type quit to exit.\r\n'.encode('ascii'))
     # using a makefile because we want to use readline()
-    fileobj = socket.makefile()
+    fileobj = socket.makefile(mode='rw')
     while True:
         line = fileobj.readline()
         if not line:
@@ -15,7 +15,7 @@ def echo(socket, address):
         if line.strip().lower() == 'quit':
             print ("client quit")
             break
-        fileobj.write(line)
+        fileobj.write(str(line))
         fileobj.flush()
         print ("echoed %r" % line)
 
