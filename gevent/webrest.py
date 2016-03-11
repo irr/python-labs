@@ -4,6 +4,7 @@ http POST "http://localhost:8000/test/check?n=10&t=ivan%20rocha" Content-Type:ap
 echo -n '{"name": "irr", "timeout": "10"}' > /tmp/post.json
 ab -p /tmp/post.json -T application/json -n 1 -c 1 http://localhost:8000/test/check
 
+tcpkali -em "GET /test HTTP/1.1\r\nHost: localhost\r\n\r\n" -r 10 --latency-marker "HTTP/1.1" localhost:8000
 """
 
 import gevent
