@@ -12,9 +12,9 @@ def worker(n):
     print('Quitting time!')
 
 def boss():
-    for i in xrange(1,25):
+    for i in range(1,25):
         print('putting item {0}'.format(i))
-        tasks.put_nowait(i)
+        tasks.put(i)
 
 
 gevent.spawn(boss).join()

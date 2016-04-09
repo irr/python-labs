@@ -18,11 +18,11 @@ def boss():
     free since the maxsize of the task queue is 3.
     """
 
-    for i in xrange(1,10):
+    for i in range(1,10):
         tasks.put(i)
     print('Assigned all work in iteration 1')
 
-    for i in xrange(10,20):
+    for i in range(10,20):
         tasks.put(i)
     print('Assigned all work in iteration 2')
 

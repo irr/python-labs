@@ -1,4 +1,4 @@
-#!/home/irocha/dev/bin/python
+#!/usr/bin/env python3
 
 import codecs, subprocess, sys, re, os
 
