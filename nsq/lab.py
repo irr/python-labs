@@ -25,7 +25,6 @@ monkey.patch_all()
 
 def consumer(port):
     reader = gnsq.Reader("topic", "channel",
-                         #lookupd_http_addresses=["localhost:4161"],
                          nsqd_tcp_addresses=["localhost:{0}".format(port)])
 
     @reader.on_message.connect
