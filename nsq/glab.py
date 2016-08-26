@@ -23,10 +23,11 @@ monkey.patch_all()
 
 # curl -d "<message>" http://127.0.0.1:4151/pub?topic=topic
 
-def consumer(port):
+def consumer():
     reader = gnsq.Reader("topic", "channel",
-                         nsqd_tcp_addresses=["localhost:{0}".format(port)])
-
+                         max_in_flight=10,
+                         max_concurrency=-1,
+                         lookupd_http_addresses=['127.0.0.1:4161'])
     @reader.on_message.connect
     def handler(server, message):
         msg = "got message from {0}={1}".format(server, message.body.decode("utf-8"))
@@ -44,7 +45,7 @@ def producer(port=4151, sleep=1, loop=10):
 
 
 if __name__ == "__main__":
-    cons = [gevent.spawn(consumer, port) for port in [4150, 4250]]
+    cons = [gevent.spawn(consumer)]
     prod = [gevent.spawn(producer, port) for port in [4151, 4251]]
     gevent.joinall(prod)
     gevent.joinall(cons)
