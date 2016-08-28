@@ -3,8 +3,8 @@ import gevent
 from gevent import subprocess
 
 # run 2 jobs in parallel
-p1 = subprocess.Popen(['uname'], stdout=subprocess.PIPE)
-p2 = subprocess.Popen(['ls'], stdout=subprocess.PIPE)
+p1 = subprocess.Popen(['uname', '-a'], stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
+p2 = subprocess.Popen(['ls', '-arlt'], stdout=subprocess.PIPE)
 
 gevent.wait([p1, p2], timeout=10)
 
