@@ -17,10 +17,10 @@ import argparse, redis, json, logging.handlers, signal, sys, uuid, datetime
 SEM = BoundedSemaphore(100)
 
 LOG_LEVEL = logging.DEBUG
-LOG_FORMAT = '[%(levelname)1.1s %(asctime)s %(module)s:%(lineno)d] %(message)s'
+LOG_FORMAT = ('%(levelname)s %(asctime)s %(name)s:%(funcName)s:%(lineno)d %(message)s')
+LOGGER = logging.getLogger(__name__)
 
-logging.basicConfig(format=LOG_FORMAT)
-logging.getLogger().setLevel(LOG_LEVEL)
+logging.basicConfig(level=logging.DEBUG, format=LOG_FORMAT)
 
 POOL = redis.ConnectionPool(host='localhost', port=6379,
                             db=0, max_connections=100)
@@ -50,11 +50,11 @@ def application(environ, start_response):
             expires = datetime.datetime.utcnow() + datetime.timedelta(minutes=1)
             ck['session']['expires'] = expires.strftime("%a, %d %b %Y %H:%M:%S GMT")
             ck['session']['httponly'] = True
-            logging.getLogger().info('cookie generated: [{0}]={1}'.format(json.dumps(ck), ck['session'].value))
+            LOGGER.info('cookie generated [{0}]={1}'.format(json.dumps(ck), ck['session'].value))
             headers.append(('Set-Cookie', ck['session'].OutputString()))
         else:
             ck = SimpleCookie(environ['HTTP_COOKIE'])
-            logging.getLogger().info('cookie received: [{0}]={1}'.format(json.dumps(ck), ck['session'].value))
+            LOGGER.info('cookie received: [{0}]={1}'.format(json.dumps(ck), ck['session'].value))
 
         data = parse_qs(environ['QUERY_STRING'])
         time = int(escape(data.get('t', ['0'])[0]))
@@ -78,7 +78,7 @@ def application(environ, start_response):
 
 def graceful_shutdown(gexc=None):
     if gexc:
-        logging.getLogger().info('%s Exiting and closing connections...' % (gexc.__class__,))
+        LOGGER.info('%s Exiting and closing connections...' % (gexc.__class__,))
     sys.exit(0)
 
 
