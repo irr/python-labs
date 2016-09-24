@@ -58,9 +58,8 @@ def application(environ, start_response):
     data = parse_qs(environ['QUERY_STRING'])
     time = int(escape(data.get('t', ['0'])[0]))
 
-    with SEM:
-        if time > 0:
-            gevent.sleep(int(time))
+    if time > 0:
+        gevent.sleep(int(time))
 
     gev1 = gevent.spawn(redis_exec)
 
