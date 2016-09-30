@@ -15,6 +15,10 @@ samples.
 """
 print(__doc__)
 
+import tkinter
+import tkinter.filedialog
+import sklearn.neighbors.typedefs
+
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.naive_bayes import GaussianNB
