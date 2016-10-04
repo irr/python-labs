@@ -115,6 +115,9 @@ sudo yum install python-gevent python-websocket-client python-crypto python-neta
 import nltk, textblob.download_corpora
 nltk.download()
 textblob.download_corpora.main()
+# or
+python -m nltk.downloader punkt
+python -m nltk.downloader wordnet
 ```
 
 ```shell
