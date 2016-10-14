@@ -6,7 +6,7 @@ mylist = []
 def somefunc(a):
     global mylist
     mylist.append(a)
-    print("somefunc:", mylist)
+    print("somefunc: {0}".format(mylist))
 
 def main():
     for i in range(10):
