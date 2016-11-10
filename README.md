@@ -133,6 +133,12 @@ cd /usr/sbin
 sudo ln -s /opt/python/nginx/sbin/nginx
 ```
 
+```
+alias ipy='python -c '\''import IPython; IPython.terminal.ipapp.launch_new_instance()'\'''
+# (virtualenv)
+pip install backports.shutil_get_terminal_size pathlib2
+```
+
 Copyright and License
 ---------------------
 Copyright 2012 Ivan Ribeiro Rocha
