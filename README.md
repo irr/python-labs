@@ -136,7 +136,7 @@ sudo ln -s /opt/python/nginx/sbin/nginx
 ```
 alias ipy='python -c '\''import IPython; IPython.terminal.ipapp.launch_new_instance()'\'''
 # (virtualenv)
-pip install pillow jsonschema requests gevent boto3 functools32 backports.shutil_get_terminal_size pathlib2 enum ipython 
+pip install boto3 pymysql redis glances httpie pillow jsonschema requests gevent boto3 functools32 backports.shutil_get_terminal_size pathlib2 enum ipython ntlk textblob facebook-sdk
 ```
 
 Copyright and License
