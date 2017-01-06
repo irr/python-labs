@@ -3,9 +3,7 @@ python-labs
 -----------
 
 ```
-alias ipy='python -c '\''import IPython; IPython.terminal.ipapp.launch_new_instance()'\'''
-
-pip install boto3 pymysql redis glances httpie pillow jsonschema requests gevent functools32 backports.shutil_get_terminal_size pathlib2 enum ipython nltk textblob watson-developer-cloud geocoder chalice
+pip install boto3 pymysql redis glances httpie pillow jsonschema requests gevent functools32 nltk textblob selenium watson-developer-cloud geocoder chalice
 ```
 
 Dependencies
