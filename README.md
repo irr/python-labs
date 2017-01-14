@@ -3,9 +3,9 @@ python-labs
 -----------
 
 ```
-pip install arrow boto3 pymysql redis glances httpie pillow jsonschema requests gevent functools32 geocoder chalice
+pip install arrow boto3 functools32 geocoder gevent glances httpie jaydebeapi jsonschema nltk pillow pymysql redis requests textblob
 
-pip install nltk textblob selenium watson-developer-cloud
+pip install selenium watson-developer-cloud
 ```
 
 Dependencies
