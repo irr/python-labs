@@ -3,7 +3,7 @@ python-labs
 -----------
 
 ```
-pip install arrow boto3 functools32 geocoder gevent glances httpie jaydebeapi jsonschema nltk pillow pymysql redis requests textblob
+pip install arrow boto3 functools32 geocoder gevent glances httpie jaydebeapi jsonschema nltk pillow pyjwt pymysql redis requests textblob
 pip install ipython pathlib2 backports.shutil_get_terminal_size enum34
 pip install selenium watson-developer-cloud
 ```
