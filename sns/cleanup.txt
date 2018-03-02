@@ -35,7 +35,9 @@ client.get_endpoint_attributes(EndpointArn=ern)
   'RetryAttempts': 0}}
 ...
 
+===============
 if not enabled!
+===============
 
 token = 'e6OmC3-jTZU:APA91bHMnq3HdcfYpVkfpDmJW3coTP3f7p2YhsbxmMorOmEPgu8dAvEWOCz9YFMXlBfMWPMXED9vWRRZK6VlzIa0P8EW_WxvbThptVZuBnaAudlbSgEx6LzvVsSP84IhAXJse-9vX5Nj'
 
