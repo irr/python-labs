@@ -1,0 +1,75 @@
+import boto3
+
+client = boto3.client('sns')
+
+arn = 'arn:aws:sns:us-east-1:940851196820:not_noticia_acontecimento_qa_51_2'
+client.list_subscriptions_by_topic(TopicArn=arn)
+
+...
+  {u'Endpoint': 'arn:aws:sns:us-east-1:940851196820:endpoint/GCM/Noticias-Android-v2/2183b20a-fd47-3e2d-aeff-6f99d2346ed1',
+   u'Owner': '940851196820',
+   u'Protocol': 'application',
+   u'SubscriptionArn': 'arn:aws:sns:us-east-1:940851196820:not_noticia_acontecimento_qa_51_2:593c490b-24c6-4da2-88fc-373b483ee28c',
+   u'TopicArn': 'arn:aws:sns:us-east-1:940851196820:not_noticia_acontecimento_qa_51_2'},
+  {u'Endpoint': 'arn:aws:sns:us-east-1:940851196820:endpoint/GCM/Noticias-Android-v2/1647bc4d-acde-3504-87eb-c441784cd5a6',
+   u'Owner': '940851196820',
+   u'Protocol': 'application',
+   u'SubscriptionArn': 'arn:aws:sns:us-east-1:940851196820:not_noticia_acontecimento_qa_51_2:5d38714d-ec93-48fe-bf20-6755281467b1',
+   u'TopicArn': 'arn:aws:sns:us-east-1:940851196820:not_noticia_acontecimento_qa_51_2'}]}
+...
+
+
+ern = 'arn:aws:sns:us-east-1:940851196820:endpoint/GCM/Noticias-Android-v2/60d51d58-f753-3766-b0b8-2a0215d2d807'
+client.get_endpoint_attributes(EndpointArn=ern)
+
+
+...
+{u'Attributes': {'Enabled': 'true',
+  'Token': 'e6OmC3-jTZU:APA91bHMnq3HdcfYpVkfpDmJW3coTP3f7p2YhsbxmMorOmEPgu8dAvEWOCz9YFMXlBfMWPMXED9vWRRZK6VlzIa0P8EW_WxvbThptVZuBnaAudlbSgEx6LzvVsSP84IhAXJse-9vX5Nj'},
+ 'ResponseMetadata': {'HTTPHeaders': {'content-length': '635',
+   'content-type': 'text/xml',
+   'date': 'Fri, 02 Mar 2018 13:34:58 GMT',
+   'x-amzn-requestid': '007f172b-3678-5d7b-a7af-4438633ad42d'},
+  'HTTPStatusCode': 200,
+  'RequestId': '007f172b-3678-5d7b-a7af-4438633ad42d',
+  'RetryAttempts': 0}}
+...
+
+if not enabled!
+
+token = 'e6OmC3-jTZU:APA91bHMnq3HdcfYpVkfpDmJW3coTP3f7p2YhsbxmMorOmEPgu8dAvEWOCz9YFMXlBfMWPMXED9vWRRZK6VlzIa0P8EW_WxvbThptVZuBnaAudlbSgEx6LzvVsSP84IhAXJse-9vX5Nj'
+
+dynamodb = boto3.resource('dynamodb')
+
+table = dynamodb.Table('tokens')
+
+response = table.get_item(Key={"token": token})
+
+...
+{u'Item': {u'endpoint': u'arn:aws:sns:us-east-1:940851196820:endpoint/GCM/Noticias-Android-v2/60d51d58-f753-3766-b0b8-2a0215d2d807',
+  u'subscriptions': u'["arn:aws:sns:us-east-1:940851196820:not_noticia_importante_qa_51_2:206afe1a-e5c7-42ac-bfc3-2a1522033674", "arn:aws:sns:us-east-1:940851196820:not_noticia_acontecimento_qa_51_2:829984e6-7793-4767-92c6-f22de43f7c22", "arn:aws:sns:us-east-1:940851196820:not_noticia_normal_qa_51_2:031d28a4-2f4c-4e5d-9775-deb442cde035"]',
+  u'timestamp': Decimal('1508446727'),
+  u'token': u'e6OmC3-jTZU:APA91bHMnq3HdcfYpVkfpDmJW3coTP3f7p2YhsbxmMorOmEPgu8dAvEWOCz9YFMXlBfMWPMXED9vWRRZK6VlzIa0P8EW_WxvbThptVZuBnaAudlbSgEx6LzvVsSP84IhAXJse-9vX5Nj',
+  u'topics': u'["not_noticia_importante_qa_51_2", "not_noticia_acontecimento_qa_51_2", "not_noticia_normal_qa_51_2"]'},
+ 'ResponseMetadata': {'HTTPHeaders': {'connection': 'keep-alive',
+   'content-length': '807',
+   'content-type': 'application/x-amz-json-1.0',
+   'date': 'Fri, 02 Mar 2018 13:38:17 GMT',
+   'server': 'Server',
+   'x-amz-crc32': '1626049969',
+   'x-amzn-requestid': 'N8UP20G7JRHRQSPB1GDFDRA4FNVV4KQNSO5AEMVJF66Q9ASUAAJG'},
+  'HTTPStatusCode': 200,
+  'RequestId': 'N8UP20G7JRHRQSPB1GDFDRA4FNVV4KQNSO5AEMVJF66Q9ASUAAJG',
+  'RetryAttempts': 0}}
+...
+
+ern = response['Item']['endpoint']
+
+subs = json.loads(response['Item']['subscriptions'])
+
+for sub in subs:
+    client.unsubscribe(SubscriptionArn=sub)
+
+client.delete_endpoint(EndpointArn=ern)
+
+table.delete_item(Key={"token": token})
