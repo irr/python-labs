@@ -8,12 +8,10 @@ import datetime
 import os
 import simplejson as json
 
-
 """
 sls create --template aws-python3 --path serverless
-npm install --save-dev serverless-content-encoding
-npm install serverless-offline --save-dev
 sls plugin install -n serverless-python-requirements
+npm install --save-dev serverless-content-encoding
 """
 
 def _serialize(obj):
