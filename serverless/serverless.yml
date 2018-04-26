@@ -1,0 +1,39 @@
+service: serverless
+
+provider:
+  name: aws
+  profile: personal
+  runtime: python3.6
+  memorySize: 128
+  timeout: 30
+  deploymentBucket: irrlab
+  stage: dev
+  region: us-east-1
+  environment:
+    my_bucket: irrlab
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:List*"
+      Resource: "*"
+
+
+plugins:
+  - serverless-content-encoding
+  - serverless-python-requirements
+
+
+custom:
+  contentEncoding:
+    minimumCompressionSize: 0 # Minimum body size required for compression in bytes
+  pythonRequirements:
+    zip: true
+
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http:
+          path: /
+          method: get
