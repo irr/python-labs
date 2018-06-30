@@ -3,7 +3,7 @@ import redis
 
 from datetime import datetime
 
-# pip install flask flask-caching
+# pip install flask flask-caching redis
 from flask import Flask, jsonify, request, current_app
 from flask_caching import Cache
 
