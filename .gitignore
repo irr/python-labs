@@ -1,2 +1,4 @@
 *.pyc
 data/symbols.db
+.vscode/
+venv/
