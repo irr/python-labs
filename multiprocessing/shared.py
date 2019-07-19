@@ -4,6 +4,7 @@
 
 import logging
 import os
+import pickle
 import psutil
 import random
 import simplejson as json
@@ -36,9 +37,8 @@ def pmem():
     print(f"main: pid={pid}, mem={mem}, percent={memp}")
 
 
-print("creating huge numpy array... ~ 8Gb")
-# ~ 8Gb
-N, M, D = int(100000000 / 4), 10, int(100000000 / 4)
+print("creating huge numpy array...")
+N, M, D = int(100000000 / 4), 10, int(100000000 / 10)
 np_type_to_ctype = {
     np.float32: c.c_float,
     np.float64: c.c_double,
@@ -46,12 +46,34 @@ np_type_to_ctype = {
     np.uint8: c.c_ubyte,
     np.uint64: c.c_ulonglong
 }
-MP_ARRAY = mp.RawArray(np_type_to_ctype[np.float64], N * M)
+if os.path.exists("nparray.dat"):
+    print("loading numpy array...")
+    with open('nparray.dat', 'rb') as k:
+        arr = pickle.load(k)
+    print("numpy array loaded")
+else:
+    arr = np.arange(N * M)
+    with open("nparray.dat", "wb") as f:
+        pickle.dump(arr, f)
+
+MP_ARRAY = mp.RawArray(np_type_to_ctype[np.float64], arr.flat[:])
 print("numpy array created!")
+
+arr = None
 
 manager = mp.Manager()
 print("creating huge dict...")
-MP_DICT = manager.dict({ f"k{v}": v * 2 for v in range(D) })
+if os.path.exists("mpdict.dat"):
+    print("loading huge dict...")
+    with open('mpdict.dat', 'rb') as k:
+        d = pickle.load(k)
+    print("huge dict loaded")
+else:
+    d = { f"k{v}": v * 2 for v in range(D) }
+    with open("mpdict.dat", "wb") as f:
+        pickle.dump(d, f)
+
+MP_DICT = manager.dict(d)
 print("dict created!")
 
 pmem()
