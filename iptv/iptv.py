@@ -4,6 +4,7 @@ import sys
 # python iptv.py TV-2020-01-21.m3u "BR:"
 
 def process(fname, fexp):
+    duplicates = {}
     print("#EXTM3U")
     channels = []
     buffer = None
@@ -13,7 +14,9 @@ def process(fname, fexp):
                 if line.lower().find(fexp.lower()) != -1:
                     buffer = line
             elif buffer is not None:
-                channels.append([buffer, line])
+                if line not in duplicates:
+                    channels.append([buffer, line])
+                    duplicates[line] = True
                 buffer = None
     channels = sorted(channels, key=lambda k: k[0])
     for channel in channels:
