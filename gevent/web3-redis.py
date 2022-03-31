@@ -9,7 +9,7 @@ monkey.patch_all()
 
 from gevent.lock import BoundedSemaphore
 from gevent.pywsgi import WSGIServer
-from cgi import parse_qs, escape
+from urllib.parse import parse_qs
 from http.cookies import SimpleCookie
 
 import argparse, redis, json, logging.handlers, signal, sys, uuid, datetime
@@ -57,7 +57,7 @@ def application(environ, start_response):
             LOGGER.info('cookie received: [{0}]={1}'.format(json.dumps(ck), ck['session'].value))
 
         data = parse_qs(environ['QUERY_STRING'])
-        time = int(escape(data.get('t', ['0'])[0]))
+        time = int((data.get('t', ['0'])[0]))
 
         if time > 0:
             gevent.sleep(int(time))
@@ -101,8 +101,6 @@ if __name__ == "__main__":
 
     ARGS = PARSER.parse_args()
     logging.info('Listening on %s:%d...' % (ARGS.bind, ARGS.port))
-
-    gevent.signal(signal.SIGTERM, graceful_shutdown)
 
     try:
         WSGIServer((ARGS.bind, ARGS.port), application).serve_forever()
