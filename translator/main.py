@@ -4,7 +4,7 @@ import os
 
 TEST_FILE = "./test.srt"
 
-def translate(text, src="es", dst="pt"):
+def translate(text, src="en", dst="pt"):
     client = boto3.client('translate')
     response = client.translate_text(
         Text=text,
