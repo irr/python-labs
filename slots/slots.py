@@ -1,4 +1,6 @@
+from codetiming import Timer
 from datetime import datetime
+from humanfriendly import format_number, format_timespan
 from termcolor import colored
 
 import sys
@@ -10,6 +12,7 @@ WINDOW = 10 * 60 # 10 minutes
 
 now = datetime.utcnow()
 
+@Timer(name="calculate")
 def calculate(now):
     epoch = int(datetime(now.year, now.month, now.day, 0, 0).strftime('%s'))
     elapsed = int(now.timestamp()) - epoch
@@ -18,9 +21,9 @@ def calculate(now):
     print(f"{'current timestamp':>25}: {int(now.timestamp())}")
     print(colored(f"{'zero-hour timestamp':>25}: {epoch}", 'blue'))
     print(f"{'seconds per day':>25}: {TOTAL:>10}")
-    print(f"{'elapsed seconds':>25}: {elapsed:>10}")
+    print(f"{'elapsed seconds':>25}: {elapsed:>10} => {format_timespan(elapsed, max_units=6)}")
     print(colored(f"{'available slots':>25}: {slots:>10}", 'red'))
-    print(colored(f"{'current slot':>25}: {current_slot:>10}", attrs=['bold']))
+    print(colored(f"{'current slot':>25}: {current_slot:>10}  => {format_number(current_slot/slots * 100)} %", attrs=['bold']))
     token = uuid.uuid5(NAMESPACE, f"user1:user2:xxxxxxxx:{current_slot}")
     print(colored(f"{'x-gympass-idempotency-key':>25}: {token}", attrs=['bold']))
 
