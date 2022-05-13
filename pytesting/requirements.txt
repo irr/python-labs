@@ -1,5 +1,5 @@
 aiodns==2.0.0
-aiohttp==3.5.4
+aiohttp==3.7.4
 bjoern==3.0.1
 cchardet==2.1.4
 Click==7.0
