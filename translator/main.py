@@ -19,11 +19,14 @@ def process(file):
     lines = f.readlines()
     for line in lines:
         line = line.strip()
-        if len(line) > 0 and not line.isnumeric() and line.find(" --> ") == -1:
-            response = translate(line)
-            translated_text = response.get("TranslatedText")
+        if line.startswith("[") and line.endswith("]"):
+            translated_text = ""
         else:
-            translated_text = line
+            if len(line) > 0 and not line.isnumeric() and line.find(" --> ") == -1:
+                response = translate(line)
+                translated_text = response.get("TranslatedText")
+            else:
+                translated_text = line
         print(translated_text, flush=True)
 
 
