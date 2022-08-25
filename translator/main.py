@@ -14,7 +14,7 @@ def translate(text, src="en", dst="pt"):
     return response
 
 
-def process(file):
+def process(file, src="en"):
     f = open(file, "rt")
     lines = f.readlines()
     for line in lines:
@@ -23,7 +23,7 @@ def process(file):
             translated_text = ""
         else:
             if len(line) > 0 and not line.isnumeric() and line.find(" --> ") == -1:
-                response = translate(line)
+                response = translate(line, src)
                 translated_text = response.get("TranslatedText")
             else:
                 translated_text = line
@@ -35,11 +35,14 @@ def show_help():
 
 
 if __name__ == '__main__':
-    if len(sys.argv) != 2: 
+    if len(sys.argv) < 2: 
         if os.path.exists(TEST_FILE): 
             process(TEST_FILE)
         else:
             show_help()
             sys.exit(1)
     else:
-        process(sys.argv[1])
+        if len(sys.argv) == 3:
+            process(sys.argv[1], sys.argv[2])
+        else:
+            process(sys.argv[1])
