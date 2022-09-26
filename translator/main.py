@@ -19,7 +19,7 @@ def process(file, src="en"):
     lines = f.readlines()
     for line in lines:
         line = line.strip()
-        if line.startswith("[") and line.endswith("]"):
+        if (line.startswith("[") and line.endswith("]")) or (line.startswith("(") and line.endswith(")")):
             translated_text = ""
         else:
             if len(line) > 0 and not line.isnumeric() and line.find(" --> ") == -1:
