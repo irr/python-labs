@@ -18,6 +18,7 @@ def lambda_handler(event, context):
 
 
 """
+Testing:
 {
   "Records": [
     {
@@ -33,6 +34,7 @@ def lambda_handler(event, context):
   ]
 }
 
+Role (dev purposes only!):
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -47,6 +49,7 @@ def lambda_handler(event, context):
     ]
 }
 
+Athena catalog creation:
 
 CREATE EXTERNAL TABLE IF NOT EXISTS
     default.partitioned_cf (
@@ -88,6 +91,16 @@ TBLPROPERTIES ( 'skip.header.line.count'='2');
 
 msck repair table default.partitioned_cf
 
-select * from default.partitioned_cf limit 20;
+
+Basic tests:
+
+SELECT * FROM default.partitioned_cf LIMIT 20;
+
+SELECT *
+FROM default.partitioned_cf
+WHERE year = '2022'
+AND month = '10'
+AND day = '12'
+AND hour BETWEEN '00' AND '23';
 
 """
