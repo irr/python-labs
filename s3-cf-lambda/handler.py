@@ -7,23 +7,15 @@ def lambda_handler(event, context):
         bucket = record["s3"]["bucket"]["name"]
         key = record["s3"]["object"]["key"]
         distro = key.split(".")[0].split("/")[0]
-        dateAndHour = key.split(".")[1].split("/")[0]
-        year, month, day, hour = dateAndHour.split("-")
-
-        dest = "partitioned/{}/year={}/month={}/day={}/hour={}/{}".format(
-            distro, year, month, day, hour, key
-        )
+        datestr = key.split(".")[1].split("/")[0]
+        y, m, d, h = datestr.split("-")
+        dest = f"partitioned/{distro}/year={y}/month={m}/day={d}/hour={h}/{key}"
         
-        print(f"copy: s3://{bucket}/{key} -> s3://{bucket}/{dest}")
-
         s3.copy_object(Bucket=bucket, Key=dest, CopySource=bucket + "/" + key)        
         #s3.delete_object(Bucket=bucket, Key=key)
-    
-    return {
-        "statusCode": 200,
-        "body": "",
-        "headers": {"Content-Type": "application/json", "Access-Control-Allow-Origin": "*"}
-    }
+
+        print(f"copy: s3://{bucket}/{key} -> s3://{bucket}/{dest}")
+
 
 """
 {
@@ -33,7 +25,7 @@ def lambda_handler(event, context):
         "bucket": {
           "name": "irr-static-logs"
         },
-        "object": {
+        "key": {
           "key": "E3U1KSE3QN2C8K.2022-10-12-12.05c44449.gz"
         }
       }
@@ -48,7 +40,7 @@ def lambda_handler(event, context):
             "Effect": "Allow",
             "Action": [
                 "s3:*",
-                "s3-object-lambda:*"
+                "s3-key-lambda:*"
             ],
             "Resource": "*"
         }
