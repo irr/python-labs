@@ -1,7 +1,27 @@
+import base64
 import boto3
+
+secret_name = "prod/transformCF/Key"
+region_name = "eu-west-1"
 
 s3 = boto3.client("s3")
 
+session = boto3.session.Session()
+secret = session.client(
+    service_name='secretsmanager',
+    region_name=region_name
+)
+
+
+def get_secret():
+    get_secret_value_response = secret.get_secret_value(SecretId=secret_name)
+    if 'SecretString' in get_secret_value_response:
+        res = get_secret_value_response['SecretString']
+    else:
+        res = base64.b64decode(get_secret_value_response['SecretBinary'])
+    return res
+    
+    
 def lambda_handler(event, context):
     for record in event["Records"]:
         bucket = record["s3"]["bucket"]["name"]
@@ -15,8 +35,9 @@ def lambda_handler(event, context):
         s3.copy_object(Bucket=bucket, Key=dest, CopySource=bucket + "/" + key)        
         #s3.delete_object(Bucket=bucket, Key=key)
 
-        print(f"copy ({distro}): s3://{bucket}/{key} -> s3://{bucket}/{dest}")
-
+        tsec = get_secret()
+        
+        print(f"{tsec} copy ({distro}): s3://{bucket}/{key} -> s3://{bucket}/{dest}")
 
 """
 Testing:
@@ -36,6 +57,7 @@ Testing:
 }
 
 Role (dev purposes only!):
+
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -43,12 +65,17 @@ Role (dev purposes only!):
             "Effect": "Allow",
             "Action": [
                 "s3:*",
-                "s3-key-lambda:*"
+                "s3-object-lambda:*",
+                "secretsmanager:GetSecretValue",
+                "secretsmanager:DescribeSecret",
+                "secretsmanager:List*",
+                "kms:Decrypt"
             ],
             "Resource": "*"
         }
     ]
 }
+
 
 Athena catalog creation:
 
