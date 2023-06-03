@@ -45,7 +45,10 @@ if __name__ == '__main__':
     if len(sys.argv) > 0:
         with open(sys.argv[1], encoding='utf-8-sig') as file:
             content = file.readlines()
-        translated_text = translate(content)
-        print(translated_text)
+        try:
+            translated_text = translate(content)
+            print(translated_text)
+        except Exception as ex:
+            print(ex)
     else:
         print("usage: main.py <file to translate>")
