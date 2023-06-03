@@ -3,8 +3,9 @@ from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 
 import sys
+import time
 
-WINDOW = 99
+WINDOW = 20
 
 def translate(content):
     translated_text = ""
@@ -33,7 +34,8 @@ def translate(content):
                     content.insert(0, line)
                     chunk.pop()
                     break
-        response = chain.run(chunk)
+        time.sleep(1)
+        response = chain.run(''.join(chunk))
         translated_text += f"{response}\n"
         
     return translated_text
