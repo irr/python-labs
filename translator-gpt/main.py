@@ -37,7 +37,6 @@ def translate(content):
                     break
         time.sleep(1)
         response = chain.run(''.join(chunk))
-        print(">>>>", response)
         translated_text += f"{response}\n"
         
     return translated_text
