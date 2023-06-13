@@ -23,8 +23,6 @@ def translate(content):
         template=template,
     )
 
-    chain = LLMChain(llm=llm, prompt=prompt)
-
     while len(content) > 0:
         chunk = []
         while len(content) > 0:
@@ -36,20 +34,23 @@ def translate(content):
                     chunk.pop()
                     break
         time.sleep(1)
+        chain = LLMChain(llm=llm, prompt=prompt)
         response = chain.run(''.join(chunk))
         translated_text += f"{response}\n"
-        
+
     return translated_text
 
 
 if __name__ == '__main__':
-    if len(sys.argv) > 0:
-        with open(sys.argv[1], encoding='utf-8-sig') as file:
-            content = file.readlines()
-        try:
-            translated_text = translate(content)
-            print(translated_text)
-        except Exception as ex:
-            print(ex)
+    if len(sys.argv) > 1:
+        fname = sys.argv[1]
     else:
-        print("usage: main.py <file to translate>")
+        fname = "test.srt" 
+    with open(fname, encoding='utf-8-sig') as file:
+        content = file.readlines()
+    try:
+        translated_text = translate(content)
+        print(translated_text)
+    except Exception as ex:
+        print(ex)
+
