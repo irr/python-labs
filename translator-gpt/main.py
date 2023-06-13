@@ -13,8 +13,8 @@ def translate(content):
     llm = ChatOpenAI(temperature=0, model_name='gpt-3.5-turbo')
 
     template = """
-    Your are an expert on translating movie subtitles. Translate the following text to 
-    portuguese keeping the subtitle format:
+    You are an expert in translating movie subtitles. Translate the following text to 
+    Portuguese keeping the subtitle format:
     {chunk}
     """
 
