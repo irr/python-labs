@@ -1,4 +1,4 @@
-from langchain.llms import OpenAI
+from langchain.chat_models import ChatOpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 
@@ -10,10 +10,11 @@ WINDOW = 20
 def translate(content):
     translated_text = ""
 
-    llm = OpenAI(temperature=0, model='text-davinci-003')
+    llm = ChatOpenAI(temperature=0, model_name='gpt-3.5-turbo')
 
     template = """
-    Translate the following text to portuguese keeping the subtitle format:
+    Your are an expert on translating movie subtitles. Translate the following text to 
+    portuguese keeping the subtitle format:
     {chunk}
     """
 
@@ -36,6 +37,7 @@ def translate(content):
                     break
         time.sleep(1)
         response = chain.run(''.join(chunk))
+        print(">>>>", response)
         translated_text += f"{response}\n"
         
     return translated_text
