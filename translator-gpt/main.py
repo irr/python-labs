@@ -15,6 +15,7 @@ def translate(content):
     template = """
     You are an expert in translating movie subtitles. Translate the following text to 
     Portuguese keeping the subtitle format:
+    
     {chunk}
     """
 
