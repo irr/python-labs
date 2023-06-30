@@ -1,6 +1,7 @@
 import sys
 import boto3
 import os
+import re
 
 TEST_FILE = "./test.srt"
 
@@ -14,20 +15,26 @@ def translate(text, src="en", dst="pt"):
     return response
 
 
-def process(file, src="en"):
-    f = open(file, "rt")
-    lines = f.readlines()
-    for line in lines:
-        line = line.strip()
-        if (line.startswith("[") and line.endswith("]")) or (line.startswith("(") and line.endswith(")")):
-            translated_text = ""
-        else:
-            if len(line) > 0 and not line.isnumeric() and line.find(" --> ") == -1:
-                response = translate(line, src)
-                translated_text = response.get("TranslatedText")
-            else:
-                translated_text = line
-        print(translated_text, flush=True)
+def process(file_path, src='en'):
+
+    with open(file_path, 'r') as file:
+        content = file.read()
+        blocks = content.split('\n\n')
+
+    for block in blocks:
+        translated_text = ""
+        if block.strip() != "":
+            lines = block.split('\n')
+
+            text = '\n'.join([re.sub(r'\[.*?\]|\(.*?\)', '', line) for line in lines[2:]]).strip()
+
+            response = translate(text, src)
+            translated_text = response.get("TranslatedText")
+
+            print(lines[0])
+            print(lines[1])
+            print(translated_text)
+            print(flush=True)
 
 
 def show_help():
