@@ -20,7 +20,6 @@ def process(file_path, src='en'):
     with open(file_path, encoding='utf-8-sig') as file:
         content = file.readlines()
     try:
-        translated_text = ""
         while len(content) > 0:
             chunk = []
             while len(content) > 0:
@@ -33,8 +32,8 @@ def process(file_path, src='en'):
                         break
             text = ''.join(chunk)
             response = translate(text, src)
-            translated_text += f"{response.get('TranslatedText')}"
-            print(translated_text)
+            translated_text = f"{response.get('TranslatedText')}"
+            print(translated_text.strip())
             print(flush=True)
     except Exception as ex:
         print(ex)
@@ -47,7 +46,7 @@ def show_help():
 if __name__ == '__main__':
     if len(sys.argv) < 2: 
         if os.path.exists(TEST_FILE): 
-            process(TEST_FILE)
+            process(TEST_FILE, "es")
         else:
             show_help()
             sys.exit(1)
