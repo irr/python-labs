@@ -1,9 +1,10 @@
 import sys
 import boto3
 import os
-import re
 
 TEST_FILE = "./test.srt"
+
+WINDOW = 50
 
 def translate(text, src="en", dst="pt"):
     client = boto3.client('translate')
@@ -16,25 +17,27 @@ def translate(text, src="en", dst="pt"):
 
 
 def process(file_path, src='en'):
-
-    with open(file_path, 'r') as file:
-        content = file.read()
-        blocks = content.split('\n\n')
-
-    for block in blocks:
+    with open(file_path, encoding='utf-8-sig') as file:
+        content = file.readlines()
+    try:
         translated_text = ""
-        if block.strip() != "":
-            lines = block.split('\n')
-
-            text = '\n'.join([re.sub(r'\[.*?\]|\(.*?\)', '', line) for line in lines[2:]]).strip()
-
+        while len(content) > 0:
+            chunk = []
+            while len(content) > 0:
+                line = content.pop(0)
+                chunk.append(line)
+                if line.strip().isnumeric():
+                    if len(chunk) > WINDOW:
+                        content.insert(0, line)
+                        chunk.pop()
+                        break
+            text = ''.join(chunk)
             response = translate(text, src)
-            translated_text = response.get("TranslatedText")
-
-            print(lines[0])
-            print(lines[1])
+            translated_text += f"{response.get('TranslatedText')}"
             print(translated_text)
             print(flush=True)
+    except Exception as ex:
+        print(ex)
 
 
 def show_help():
