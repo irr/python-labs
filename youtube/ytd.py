@@ -1,24 +1,31 @@
+# sudo apt install python3-tqdm
+# sudo pip install pytube
+
 import sys
 from pytube import YouTube
+from tqdm import tqdm
 
-# Check if URL is passed as an argument
 if len(sys.argv) != 2:
-    print("Usage: python3 ytd.py <youtube_url>")
+    print("Usage: python3 download_youtube_video.py <youtube_url>")
     sys.exit(1)
 
-# Store the URL
 url = sys.argv[1]
 
 try:
-    # Create a YouTube object with the URL
     yt = YouTube(url)
     
-    # Get the highest resolution stream available
-    stream = yt.streams.get_highest_resolution()
+    stream = yt.streams.filter(res="1080p", mime_type="video/mp4").first()
+    if not stream:
+        stream = yt.streams.get_highest_resolution()
     
-    # Download the video
-    print(f"Downloading {yt.title}...")
-    stream.download()
+    print(f"Downloading {yt.title} in {stream.resolution}...")
+
+    with tqdm(total=stream.filesize, unit='B', unit_scale=True, desc=yt.title) as pbar:
+        def progress_function(stream, chunk, bytes_remaining):
+            pbar.update(len(chunk))
+        yt.register_on_progress_callback(progress_function)
+        stream.download()
+
     print("Download completed!")
 except Exception as e:
     print(f"An error occurred: {e}")
