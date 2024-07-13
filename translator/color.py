@@ -13,7 +13,7 @@ def add_font_color_to_subtitles(filename, color="yellow"):
     def add_color(match):
         timing = match.group(1)
         text = match.group(2)
-        colored_text = f'<font color="{color}">{text}</font>'
+        colored_text = f'<font color="{color}"><b>{text}</b></font>'
         return f'{timing}{colored_text}\n\n'
 
     # Substitute the original text with the colored text
